@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="FEED POST" />
+
+    <item
+        android:id="@+id/navigation_go_voting"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="GO VOTING" />
+
+    <item
+        android:id="@+id/navigation_result"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="RESULT" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="PROFILE" />
+
+</menu>

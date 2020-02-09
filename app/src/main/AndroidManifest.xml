@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.evoting">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".VoterHomePageActivity"
+            android:label="@string/title_activity_voter_home_page"></activity>
+        <activity android:name=".CandidateProfileEdit" />
+        <activity android:name=".VoterProfileEditActivity" />
+        <activity android:name=".VoterProfileActivity" />
+        <activity android:name=".CandidateProfileActivity" />
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".OTPActivity" />
+        <activity android:name=".CandidateForgotPasswordActivity" />
+        <activity android:name=".VoterForgotPasswordActivity" />
+        <activity android:name=".CandidateLoginActivity" />
+        <activity android:name=".VoterLoginActivity" />
+        <activity android:name=".CandidateActivity" />
+        <activity android:name=".VoterActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
