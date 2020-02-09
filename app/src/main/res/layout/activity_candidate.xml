@@ -10,14 +10,15 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/txt_NewUserC">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"
+            android:layout_gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,19 +38,6 @@
                     android:textColorHint="#f0f0f0"
                     android:textSize="16sp" />
 
-
-                <EditText
-                    android:id="@+id/edd_DOB"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="Date of Birth "
-                    android:inputType="date"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/edd_Email"
@@ -79,45 +67,6 @@
 
 
                 <EditText
-                    android:id="@+id/edd_Add"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="Address"
-                    android:inputType="textPostalAddress"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/edd_City"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="City"
-                    android:inputType="text"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/edd_State"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="State"
-                    android:inputType="text"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
-                <EditText
                     android:id="@+id/edd_Pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -131,7 +80,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/edd_Pass3"
+                    android:id="@+id/edd_PassCnf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"

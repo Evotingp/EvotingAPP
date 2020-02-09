@@ -14,9 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".AddPostActivity"></activity>
         <activity
             android:name=".VoterHomePageActivity"
-            android:label="@string/title_activity_voter_home_page"></activity>
+            android:label="@string/title_activity_voter_home_page" />
         <activity android:name=".CandidateProfileEdit" />
         <activity android:name=".VoterProfileEditActivity" />
         <activity android:name=".VoterProfileActivity" />
