@@ -78,5 +78,10 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
 
         Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
 
+        Intent i = new Intent(VoterLoginActivity.this,VoterHomePageActivity.class);
+        startActivity(i);
+
+        finish();
+
     }
 }

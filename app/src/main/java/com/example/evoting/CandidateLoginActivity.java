@@ -73,5 +73,10 @@ public class CandidateLoginActivity extends AppCompatActivity implements DataInt
     @Override
     public void getData(JSONObject jsonObject, String tag) {
         Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(CandidateLoginActivity.this,AddPostActivity.class);
+        startActivity(i);
+
+        finish();
     }
 }
