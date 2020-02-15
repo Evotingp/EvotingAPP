@@ -81,7 +81,5 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
         Intent i = new Intent(VoterLoginActivity.this,VoterHomePageActivity.class);
         startActivity(i);
 
-        finish();
-
     }
 }
