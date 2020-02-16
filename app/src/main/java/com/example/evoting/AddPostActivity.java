@@ -16,6 +16,8 @@ import com.example.evoting.utils.Webservice_Volley;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class AddPostActivity extends AppCompatActivity implements DataInterface {
@@ -51,14 +53,16 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
                 }
 
 
-                String url = Constants.Webserive_Url + "insert_feedpost";
+                String url = Constants.Webserive_Url + "add_feedpost";
                 HashMap<String, String> params = new HashMap<>();
 
                 params.put("Title", edd_Title.getText().toString());
                 params.put("Description", edd_Description.getText().toString());
                 params.put("Image", "");
+                params.put("PostedDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                params.put("Cid", "1");
 
-                volley.CallVolley(url, params, "insert_feedpost");
+                volley.CallVolley(url, params, "add_feedpost");
             }
         });
     }

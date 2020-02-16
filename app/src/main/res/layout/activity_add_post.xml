@@ -22,8 +22,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Title"
-            android:hint="Add post"/>
+            android:hint="Title"/>
 
         <EditText
             android:id="@+id/edd_Description"
@@ -32,8 +31,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="Description"
-            android:hint="Add post"/>
+            android:hint="Description"/>
 
 
         <ImageView

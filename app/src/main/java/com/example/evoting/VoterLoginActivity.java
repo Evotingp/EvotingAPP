@@ -76,10 +76,18 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
     @Override
     public void getData(JSONObject jsonObject, String tag) {
 
-        Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+        try {
 
-        Intent i = new Intent(VoterLoginActivity.this,VoterHomePageActivity.class);
-        startActivity(i);
+            Toast.makeText(this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
+            if (jsonObject.getString("status").equalsIgnoreCase("200")) {
+                Intent i = new Intent(VoterLoginActivity.this, VoterHomePageActivity.class);
+                startActivity(i);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 }

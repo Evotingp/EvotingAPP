@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,11 +45,13 @@ public class HomeFragment extends Fragment implements DataInterface {
         recyclerPost = (RecyclerView)root.findViewById(R.id.recyclerPost);
         recyclerPost.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        String url = Constants.Webserive_Url + "getfeedpost";
+        recyclerPost.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+
+        String url = Constants.Webserive_Url + "get_feedpost";
 
         HashMap<String,String> params = new HashMap<>();
 
-        volley.CallVolley(url,params,"getfeedpost");
+        volley.CallVolley(url,params,"get_feedpost");
 
         return root;
     }
@@ -57,8 +60,6 @@ public class HomeFragment extends Fragment implements DataInterface {
     public void getData(JSONObject jsonObject, String tag) {
 
         try {
-
-            Toast.makeText(getActivity(), jsonObject.toString(), Toast.LENGTH_SHORT).show();
 
             FeedPostResponseVo feedPostResponseVo = new Gson().fromJson(jsonObject.toString(),FeedPostResponseVo.class);
 

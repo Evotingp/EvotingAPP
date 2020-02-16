@@ -1,6 +1,7 @@
 package com.example.evoting.adapter;
 
-import android.view.LayoutInflater;  
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;  
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.evoting.R;
 import com.example.evoting.models.FeedPostResponseVo;
 import com.example.evoting.models.FeedPostResultVo;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -42,6 +44,11 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         holder.txt_title.setText(feedPostResultVo.getTitle());
         holder.txt_PostedDate.setText(feedPostResultVo.getPostedDate());
         holder.txt_Description.setText(feedPostResultVo.getDescription());
+        holder.txt_name.setText(feedPostResultVo.getCname());
+
+        if (!TextUtils.isEmpty(feedPostResultVo.getImage())) {
+            Picasso.get().load(feedPostResultVo.getImage()).into(holder.imageView1);
+        }
 
 
 
@@ -56,13 +63,15 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
   
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView1;
-        public TextView txt_title,txt_PostedDate,txt_Description;
+        public TextView txt_title,txt_PostedDate,txt_Description,txt_name;
         public ViewHolder(View itemView) {  
             super(itemView);
             txt_title=(TextView)itemView.findViewById(R.id.txt_title);
+            txt_name=(TextView)itemView.findViewById(R.id.txt_name);
             txt_PostedDate=(TextView)itemView.findViewById(R.id.txt_PostedDate);
             txt_Description=(TextView)itemView.findViewById(R.id.txt_Description);
             imageView1=(ImageView)itemView.findViewById(R.id.imageView1);
+
         }  
     }  
 }  

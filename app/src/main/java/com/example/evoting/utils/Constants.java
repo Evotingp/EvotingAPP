@@ -6,7 +6,7 @@ package com.example.evoting.utils;
 public class Constants {
 
 
-   public static final String Webserive_Url="http://192.168.43.59:3012/api/";
+   public static final String Webserive_Url="http://192.168.2.5:3012/api/";
 
 
 
