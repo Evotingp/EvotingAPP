@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,15 +22,22 @@ import com.example.evoting.utils.DataInterface;
 import com.example.evoting.utils.Webservice_Volley;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.loopj.android.http.TextHttpResponseHandler;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
@@ -39,6 +47,8 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
     ImageView imageView;
     FloatingActionButton AddImg_Post;
     Button btn_add;
+
+    String imagePath;
 
     Webservice_Volley volley;
 
@@ -85,7 +95,7 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
 
                 params.put("Title", edd_Title.getText().toString());
                 params.put("Description", edd_Description.getText().toString());
-                params.put("Image", "");
+                params.put("Image", imagePath);
                 params.put("PostedDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 params.put("Cid", "1");
 
@@ -161,6 +171,15 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
 
                 if (imageFiles.size() > 0) {
 
+                    try {
+
+                        uploadPhoto(imageFiles.get(0));
+
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     imageView.setImageURI(Uri.fromFile(imageFiles.get(0)));
 
                 }
@@ -168,6 +187,49 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
             }
         });
     }
+
+
+    private void uploadPhoto(File myFile) throws FileNotFoundException {
+
+
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams params = new RequestParams();
+
+                Log.v("File Size", "origial Length===>" + myFile.length());
+
+                if (myFile != null) {
+                    Log.v("File ", "with compress===>");
+                    params.put("userPhoto", myFile);
+                }
+
+                ResponseHandlerInterface handler = new TextHttpResponseHandler() {
+
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+                        imagePath = "";
+
+                        Toast.makeText(AddPostActivity.this, "Upload fail", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+
+//                        Toast.makeText(AddPostActivity.this, responseString, Toast.LENGTH_LONG).show();
+
+                        imagePath = responseString;
+
+
+                    }
+                };
+
+                    client.post(Constants.Webserive_Url + "photo", params, handler);
+
+    }
+
 
 
 
