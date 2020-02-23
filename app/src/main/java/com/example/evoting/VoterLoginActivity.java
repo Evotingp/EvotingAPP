@@ -81,6 +81,7 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
             Toast.makeText(this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
             if (jsonObject.getString("status").equalsIgnoreCase("200")) {
+
                 Intent i = new Intent(VoterLoginActivity.this, VoterHomePageActivity.class);
                 startActivity(i);
             }

@@ -33,13 +33,33 @@
             android:inputType="textMultiLine"
             android:hint="Description"/>
 
-
-        <ImageView
-            android:id="@+id/imageView"
+        <FrameLayout
+            android:id="@+id/fl_post"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/uploadimage"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/AddImg_Post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:clickable="true"
+                android:tint="@android:color/white"
+                app:fabSize="mini"
+                app:srcCompat="@android:drawable/ic_input_add" />
+        </FrameLayout>
 
         <Button
             android:id="@+id/btn_add"

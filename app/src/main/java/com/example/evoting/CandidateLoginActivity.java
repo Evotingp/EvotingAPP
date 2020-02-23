@@ -74,7 +74,7 @@ public class CandidateLoginActivity extends AppCompatActivity implements DataInt
     public void getData(JSONObject jsonObject, String tag) {
         Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
 
-        Intent i = new Intent(CandidateLoginActivity.this,AddPostActivity.class);
+        Intent i = new Intent(CandidateLoginActivity.this,CandidateHomePageActivity.class);
         startActivity(i);
 
         finish();

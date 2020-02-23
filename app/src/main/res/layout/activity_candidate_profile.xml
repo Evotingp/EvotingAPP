@@ -34,9 +34,7 @@
             android:layout_gravity="bottom|right"
             android:backgroundTint="@android:color/holo_red_dark"
             android:tint="@android:color/white"
-            app:srcCompat="@android:drawable/ic_input_add" />
-
-
+            app:srcCompat="@android:drawable/ic_input_add"/>
     </FrameLayout>
 
 

@@ -1,32 +1,48 @@
 package com.example.evoting;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.example.evoting.utils.Commonfunction;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
 import com.example.evoting.utils.Webservice_Volley;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class AddPostActivity extends AppCompatActivity implements DataInterface {
 
     TextView edd_Title, edd_Description;
     ImageView imageView;
+    FloatingActionButton AddImg_Post;
     Button btn_add;
 
     Webservice_Volley volley;
+
+    JSONObject Data = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +51,20 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
         edd_Title=(TextView)findViewById(R.id.edd_Title);
         edd_Description=(TextView)findViewById(R.id.edd_Description);
         imageView=(ImageView) findViewById(R.id.imageView);
+        AddImg_Post=(FloatingActionButton)findViewById(R.id.AddImg_Post);
         btn_add =(Button) findViewById(R.id.btn_add);
 
         volley = new Webservice_Volley(this,this);
+
+        AddImg_Post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showBottomPickerDialog();
+
+            }
+        });
+
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,4 +98,78 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
     public void getData(JSONObject jsonObject, String tag) {
         Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
     }
+    public void showBottomPickerDialog() {
+
+        try {
+
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+            bottomSheetDialog.setContentView(R.layout.imagepickerdialog);
+
+            ImageView imgCancel = (ImageView)bottomSheetDialog.findViewById(R.id.imgCancel);
+            LinearLayout ll_camera = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_camera);
+            LinearLayout ll_gallery = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_gallery);
+
+
+
+            ll_camera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EasyImage.openCameraForImage(AddPostActivity.this,1);
+                    bottomSheetDialog.dismiss();
+                }
+            });
+
+            ll_gallery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EasyImage.openGallery(AddPostActivity.this,1);
+                    bottomSheetDialog.dismiss();
+
+                }
+            });
+
+
+            imgCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    bottomSheetDialog.dismiss();
+
+                }
+            });
+
+
+            bottomSheetDialog.show();
+
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+
+            @Override
+            public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {
+
+                if (imageFiles.size() > 0) {
+
+                    imageView.setImageURI(Uri.fromFile(imageFiles.get(0)));
+
+                }
+
+            }
+        });
+    }
+
+
+
+
 }
