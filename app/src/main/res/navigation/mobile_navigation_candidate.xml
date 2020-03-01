@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.evoting.ui.dashboard.DashboardFragment"
+        android:id="@+id/nav_gallery"
+        android:name="com.example.evoting.ui.electionlist.ElectionListFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_election_list" />
 
     <fragment
         android:id="@+id/navigation_notifications"

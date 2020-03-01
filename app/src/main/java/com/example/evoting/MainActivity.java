@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ClickOnCandidate(View view) {
-        Intent i = new Intent(MainActivity.this,CandidateElectionFormActivity.class);
+        Intent i = new Intent(MainActivity.this,CandidateHomePageActivity.class);
         startActivity(i);
     }
 }

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,15 +21,21 @@ import com.example.evoting.utils.DataInterface;
 import com.example.evoting.utils.Webservice_Volley;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
@@ -159,9 +166,10 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                 params.put("ZipCode", edd_ZipCode.getText().toString());
                 params.put("DOB", edd_dob.getText().toString());
 
-                params.put("Front_Id", "");
-                params.put("Back_Id", "");
-                params.put("Address_Proof", "");
+                params.put("Front_Id", fidimage.getTag().toString());
+                params.put("Back_Id", bidimage.getTag().toString());
+                params.put("Front_Address", faddressimg.getTag().toString());
+                params.put("Back_Address", faddressimg.getTag().toString());
                 params.put("Is_Approve", "0");
 
                 params.put("Candidate_Id", "1");
@@ -238,8 +246,7 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                 if (imageFiles.size() > 0) {
 
                     try {
-
-
+                        uploadPhoto(imageFiles.get(0));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -251,5 +258,56 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
             }
         });
     }
+
+    private void uploadPhoto(File myFile) throws FileNotFoundException {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        Log.v("File Size", "origial Length===>" + myFile.length());
+
+        if (myFile != null) {
+            Log.v("File ", "with compress===>");
+            params.put("userPhoto", myFile);
+        }
+
+        ResponseHandlerInterface handler = new TextHttpResponseHandler() {
+
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+                imagePath = "";
+
+                Toast.makeText(CandidateElectionFormActivity.this, "Upload fail", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+
+//                        Toast.makeText(AddPostActivity.this, responseString, Toast.LENGTH_LONG).show();
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(responseString);
+                    if (jsonObject != null) {
+                        imagePath = jsonObject.getString("filename");
+
+                        selected_imageview.setTag(imagePath);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        };
+
+        client.post(Constants.Webserive_Url + "photo", params, handler);
+
+    }
+
 }
 
