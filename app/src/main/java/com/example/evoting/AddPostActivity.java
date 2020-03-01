@@ -98,7 +98,6 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
                 params.put("Image", imagePath);
                 params.put("PostedDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 params.put("Cid", "1");
-
                 volley.CallVolley(url, params, "add_feedpost");
             }
         });
@@ -220,7 +219,17 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
 
 //                        Toast.makeText(AddPostActivity.this, responseString, Toast.LENGTH_LONG).show();
 
-                        imagePath = responseString;
+                        try {
+
+                            JSONObject jsonObject = new JSONObject(responseString);
+                            if (jsonObject != null){
+                                imagePath = jsonObject.getString("filename");
+                            }
+
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
 
                     }
