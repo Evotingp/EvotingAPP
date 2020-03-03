@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Commonfunction;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
@@ -54,6 +55,8 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
 
     JSONObject Data = null;
 
+    AllSharedPrefernces allSharedPrefernces = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +66,8 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
         imageView=(ImageView) findViewById(R.id.imageView);
         AddImg_Post=(FloatingActionButton)findViewById(R.id.AddImg_Post);
         btn_add =(Button) findViewById(R.id.btn_add);
+
+        allSharedPrefernces = new AllSharedPrefernces(this);
 
         volley = new Webservice_Volley(this,this);
 
@@ -97,7 +102,7 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
                 params.put("Description", edd_Description.getText().toString());
                 params.put("Image", imagePath);
                 params.put("PostedDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-                params.put("Cid", "1");
+                params.put("Cid",allSharedPrefernces.getCustomerNo());
                 volley.CallVolley(url, params, "add_feedpost");
             }
         });

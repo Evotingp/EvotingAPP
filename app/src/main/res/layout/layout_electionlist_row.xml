@@ -55,17 +55,26 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/txt_minage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_weight="1"
-            android:text="Minimum Age"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txt_minage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:text="Minimum Age"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
+            <Button
+                android:id="@+id/btn_participate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Participate in Election"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+        </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>
-
-    </LinearLayout>

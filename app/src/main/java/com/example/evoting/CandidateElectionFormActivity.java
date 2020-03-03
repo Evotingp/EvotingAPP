@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Commonfunction;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
@@ -52,6 +53,8 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
 
     JSONObject Data = null;
 
+    AllSharedPrefernces allSharedPrefernces = null;
+
     ImageView selected_imageview;
 
     @Override
@@ -77,6 +80,8 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
         AddImg_BAddress = (FloatingActionButton) findViewById(R.id.AddImg_BAddress);
 
         btn_submit = (Button) findViewById(R.id.btn_submit);
+
+        allSharedPrefernces = new AllSharedPrefernces(this);
 
         volley = new Webservice_Volley(this, this);
 
@@ -154,7 +159,7 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                     return;
                 }
 
-                String url = Constants.Webserive_Url + "Candidate_Participation";
+                String url = Constants.Webserive_Url + "candidate_participation";
                 HashMap<String, String> params = new HashMap<>();
 
                 params.put("First_Name", edd_FirstName.getText().toString());
@@ -172,8 +177,9 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                 params.put("Back_Address", faddressimg.getTag().toString());
                 params.put("Is_Approve", "0");
 
-                params.put("Candidate_Id", "1");
-                volley.CallVolley(url, params, "Candidate_Participation");
+                params.put("Candidate_Id",allSharedPrefernces.getCustomerNo());
+
+                volley.CallVolley(url, params, "candidate_participation");
             }
         });
 

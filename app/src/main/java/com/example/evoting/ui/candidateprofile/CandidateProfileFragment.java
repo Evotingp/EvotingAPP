@@ -1,18 +1,26 @@
-package com.example.evoting;
+package com.example.evoting.ui.candidateprofile;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.VolleyLog;
+import com.example.evoting.CandidateActivity;
+import com.example.evoting.CandidateLoginActivity;
+import com.example.evoting.CandidateProfileActivity;
+import com.example.evoting.CandidateProfileEdit;
+import com.example.evoting.R;
 import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
@@ -31,9 +39,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
-public class CandidateProfileActivity extends AppCompatActivity implements DataInterface {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class CandidateProfileFragment extends Fragment implements DataInterface {
 
-    TextView txt_nameC, txt_emailC, txt_phoneC,txt_addressC,txt_cityC, txt_stateC, txt_dobC;
+
+    public CandidateProfileFragment() {
+        // Required empty public constructor
+    }
+
+
+    TextView txt_nameC, txt_emailC, txt_phoneC,txt_addressC,txt_cityC, txt_stateC, txt_dobC, txt_EditUserC;
     CircleImageView img_profile;
     FloatingActionButton EditImg_Profile;
 
@@ -43,39 +60,58 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
 
     AllSharedPrefernces allSharedPrefernces = null;
 
+    View root=null;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_candidate_profile);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        root= inflater.inflate(R.layout.fragment_candidate_profile, container, false);
 
-                txt_nameC=(TextView)findViewById(R.id.txt_nameC);
-                txt_emailC=(TextView)findViewById(R.id.txt_emailC);
-                txt_phoneC=(TextView)findViewById(R.id.txt_phoneC);
-                txt_addressC=(TextView)findViewById(R.id.txt_addressC);
-                txt_cityC=(TextView)findViewById(R.id.txt_cityC);
-                txt_stateC=(TextView)findViewById(R.id.txt_stateC);
-                txt_dobC=(TextView)findViewById(R.id.txt_dobC);
+        txt_nameC=(TextView)root.findViewById(R.id.txt_nameC);
+        txt_emailC=(TextView)root.findViewById(R.id.txt_emailC);
+        txt_phoneC=(TextView)root.findViewById(R.id.txt_phoneC);
+        txt_addressC=(TextView)root.findViewById(R.id.txt_addressC);
+        txt_cityC=(TextView)root.findViewById(R.id.txt_cityC);
+        txt_stateC=(TextView)root.findViewById(R.id.txt_stateC);
+        txt_dobC=(TextView)root.findViewById(R.id.txt_dobC);
+        txt_EditUserC=(TextView)root.findViewById(R.id.txt_EditUserC);
 
-                img_profile=(CircleImageView)findViewById(R.id.img_profile);
-                EditImg_Profile=(FloatingActionButton)findViewById(R.id.EditImg_Profile);
+        img_profile=(CircleImageView)root.findViewById(R.id.img_profile);
 
-                allSharedPrefernces = new AllSharedPrefernces(this);
+        EditImg_Profile=(FloatingActionButton)root.findViewById(R.id.EditImg_Profile);
 
-                volley = new Webservice_Volley(this,this);
+        allSharedPrefernces = new AllSharedPrefernces(getActivity());
 
-                EditImg_Profile.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        volley = new Webservice_Volley(getActivity(),this);
 
-                        showBottomPickerDialog();
+        EditImg_Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    }
-                });
+                showBottomPickerDialog();
 
-                String url = Constants.Webserive_Url + "get_candidateprofile";
-                HashMap<String,String> params = new HashMap<>();
-                params.put("Cid",allSharedPrefernces.getCustomerNo());
-                volley.CallVolley(url,params,"get_candidateprofile");
+            }
+        });
+
+        txt_EditUserC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getActivity(), CandidateProfileEdit.class);
+                i.putExtra("data",Data.toString());
+                startActivity(i);
+
+            }
+        });
+
+        String url = Constants.Webserive_Url + "get_candidateprofile";
+        HashMap<String,String> params = new HashMap<>();
+        params.put("Cid",allSharedPrefernces.getCustomerNo());
+        volley.CallVolley(url,params,"get_candidateprofile");
+
+        return root;
     }
 
     @Override
@@ -110,7 +146,7 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
     }
 
     public void ClickOnCandidateEdit(View view) {
-        Intent i = new Intent(CandidateProfileActivity.this,CandidateProfileEdit.class);
+        Intent i = new Intent(getActivity(), CandidateProfileEdit.class);
         i.putExtra("data",Data.toString());
         startActivity(i);
     }
@@ -119,7 +155,7 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
 
         try {
 
-            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
             bottomSheetDialog.setContentView(R.layout.imagepickerdialog);
 
             ImageView imgCancel = (ImageView)bottomSheetDialog.findViewById(R.id.imgCancel);
@@ -131,7 +167,7 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
             ll_camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openCameraForImage(CandidateProfileActivity.this,1);
+                    EasyImage.openCameraForImage(getActivity(),1);
                     bottomSheetDialog.dismiss();
                 }
             });
@@ -139,7 +175,7 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
             ll_gallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openGallery(CandidateProfileActivity.this,1);
+                    EasyImage.openGallery(getActivity(),1);
                     bottomSheetDialog.dismiss();
 
                 }
@@ -167,11 +203,11 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
 
             @Override
             public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {

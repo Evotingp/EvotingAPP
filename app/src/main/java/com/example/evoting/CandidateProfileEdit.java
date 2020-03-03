@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
 import com.example.evoting.utils.Webservice_Volley;
@@ -23,7 +24,7 @@ public class CandidateProfileEdit extends AppCompatActivity implements DataInter
 
     Webservice_Volley volley;
 
-    String Cid = "1";
+    AllSharedPrefernces allSharedPrefernces = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class CandidateProfileEdit extends AppCompatActivity implements DataInter
         edd_Status=(EditText)findViewById(R.id.edd_Status);
 
         txt_SaveUserC=(TextView) findViewById(R.id.txt_SaveUserC);
+
+        allSharedPrefernces = new AllSharedPrefernces(this);
 
         volley = new Webservice_Volley(this,this);
 
@@ -84,7 +87,7 @@ public class CandidateProfileEdit extends AppCompatActivity implements DataInter
         params.put("Cstate",edd_State.getText().toString());
         params.put("Cstatus",edd_Status.getText().toString());
 
-        params.put("Cid",Cid);
+        params.put("Cid",allSharedPrefernces.getCustomerNo());
 
         volley.CallVolley(url,params,"update_candidate_profile");
     }

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,9 +22,12 @@ import java.util.List;
 public class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapter.ViewHolder> {
     private List<ElectionListDataView> listdata;
 
+    onItemClickListner mListner;
+
     // RecyclerView recyclerView;
-    public ElectionListAdapter(List<ElectionListDataView> listdata) {
+    public ElectionListAdapter(List<ElectionListDataView> listdata,onItemClickListner listner) {
         this.listdata = listdata;
+        this.mListner = listner;
     }
 
     @Override
@@ -35,13 +39,24 @@ public class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        ElectionListDataView electionListDataView = listdata.get(position);
+        final ElectionListDataView electionListDataView = listdata.get(position);
         holder.txt_title.setText(electionListDataView.getTitle());
         holder.txt_startdate.setText(parseDate(electionListDataView.getStartDate()));
         holder.txt_enddate.setText(parseDate(electionListDataView.getEndDate()));
         holder.txt_minage.setText("Minimum Age : "+electionListDataView.getMinAge());
+
+        holder.btn_participate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mListner != null) {
+                    mListner.setItemClickListener(position,electionListDataView);
+                }
+
+            }
+        });
 
     }
 
@@ -54,6 +69,7 @@ public class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView txt_title, txt_startdate, txt_enddate, txt_minage;
+        Button btn_participate;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -61,8 +77,13 @@ public class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapte
             txt_startdate = (TextView) itemView.findViewById(R.id.txt_startdate);
             txt_enddate = (TextView) itemView.findViewById(R.id.txt_enddate);
             txt_minage = (TextView) itemView.findViewById(R.id.txt_minage);
+            btn_participate = (Button) itemView.findViewById(R.id.btn_participate);
 
         }
+    }
+
+    public interface onItemClickListner {
+        public void setItemClickListener(int pos,ElectionListDataView electionListDataView);
     }
 
 

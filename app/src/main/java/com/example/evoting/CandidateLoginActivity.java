@@ -10,11 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Commonfunction;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
 import com.example.evoting.utils.Webservice_Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -26,6 +28,8 @@ public class CandidateLoginActivity extends AppCompatActivity implements DataInt
 
     Webservice_Volley volley;
 
+    AllSharedPrefernces allSharedPrefernces = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,8 @@ public class CandidateLoginActivity extends AppCompatActivity implements DataInt
         txt_NewUserC=(TextView)findViewById(R.id.txt_NewUserC);
         txt_forgotC=(TextView)findViewById(R.id.txt_forgotC);
         btn_login=(Button)findViewById(R.id.btn_login);
+
+        allSharedPrefernces = new AllSharedPrefernces(this);
 
         volley = new Webservice_Volley(this,this);
 
@@ -72,11 +78,30 @@ public class CandidateLoginActivity extends AppCompatActivity implements DataInt
 
     @Override
     public void getData(JSONObject jsonObject, String tag) {
-        Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+        try {
+            if(jsonObject.getString("status").equalsIgnoreCase("200"))
+            {
 
-        Intent i = new Intent(CandidateLoginActivity.this,CandidateHomePageActivity.class);
-        startActivity(i);
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
 
-        finish();
+                if (jsonArray.length() > 0) {
+
+                    JSONObject jobj = jsonArray.getJSONObject(0);
+
+                    allSharedPrefernces.setCustomerNo(jobj.getString("Cid"));
+                    allSharedPrefernces.setUserLogin(true);
+                    allSharedPrefernces.setUserType("candidate");
+                    allSharedPrefernces.setCustomerData(jobj.toString());
+
+                    Intent i = new Intent(CandidateLoginActivity.this, CandidateHomePageActivity.class);
+                    startActivity(i);
+
+                    finish();
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -22,6 +22,7 @@ import com.example.evoting.CandidateProfileEdit;
 import com.example.evoting.R;
 import com.example.evoting.adapter.MyListAdapter;
 import com.example.evoting.models.FeedPostResponseVo;
+import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
 import com.example.evoting.utils.Webservice_Volley;
@@ -34,6 +35,8 @@ import java.util.HashMap;
 
 public class DashboardFragment extends Fragment implements DataInterface {
 
+    AllSharedPrefernces allSharedPrefernces = null;
+
     Webservice_Volley volley;
 
     RecyclerView recyclerPost;
@@ -44,6 +47,8 @@ public class DashboardFragment extends Fragment implements DataInterface {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        allSharedPrefernces = new AllSharedPrefernces(getActivity());
 
         volley = new Webservice_Volley(getActivity(),this);
 
@@ -57,7 +62,7 @@ public class DashboardFragment extends Fragment implements DataInterface {
         String url = Constants.Webserive_Url + "get_candidate_feedpost";
 
         HashMap<String,String> params = new HashMap<>();
-        params.put("Cid","1");
+        params.put("Cid",allSharedPrefernces.getCustomerNo());
 
         volley.CallVolley(url,params,"get_candidate_feedpost");
 
