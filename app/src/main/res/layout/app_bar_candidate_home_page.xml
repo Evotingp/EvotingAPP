@@ -23,5 +23,4 @@
     <include layout="@layout/content_candidate_home_page" />
 
 
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

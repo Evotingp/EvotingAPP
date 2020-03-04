@@ -177,7 +177,7 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                 params.put("Back_Address", faddressimg.getTag().toString());
                 params.put("Is_Approve", "0");
 
-                params.put("Candidate_Id",allSharedPrefernces.getCustomerNo());
+                params.put("Candidate_Id", allSharedPrefernces.getCustomerNo());
 
                 volley.CallVolley(url, params, "candidate_participation");
             }

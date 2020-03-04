@@ -50,7 +50,7 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
     }
 
 
-    TextView txt_nameC, txt_emailC, txt_phoneC,txt_addressC,txt_cityC, txt_stateC, txt_dobC, txt_EditUserC;
+    TextView txt_nameC, txt_emailC, txt_phoneC, txt_addressC, txt_cityC, txt_stateC, txt_dobC, txt_EditUserC;
     CircleImageView img_profile;
     FloatingActionButton EditImg_Profile;
 
@@ -60,31 +60,31 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
 
     AllSharedPrefernces allSharedPrefernces = null;
 
-    View root=null;
+    View root = null;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root= inflater.inflate(R.layout.fragment_candidate_profile, container, false);
+        root = inflater.inflate(R.layout.fragment_candidate_profile, container, false);
 
-        txt_nameC=(TextView)root.findViewById(R.id.txt_nameC);
-        txt_emailC=(TextView)root.findViewById(R.id.txt_emailC);
-        txt_phoneC=(TextView)root.findViewById(R.id.txt_phoneC);
-        txt_addressC=(TextView)root.findViewById(R.id.txt_addressC);
-        txt_cityC=(TextView)root.findViewById(R.id.txt_cityC);
-        txt_stateC=(TextView)root.findViewById(R.id.txt_stateC);
-        txt_dobC=(TextView)root.findViewById(R.id.txt_dobC);
-        txt_EditUserC=(TextView)root.findViewById(R.id.txt_EditUserC);
+        txt_nameC = (TextView) root.findViewById(R.id.txt_nameC);
+        txt_emailC = (TextView) root.findViewById(R.id.txt_emailC);
+        txt_phoneC = (TextView) root.findViewById(R.id.txt_phoneC);
+        txt_addressC = (TextView) root.findViewById(R.id.txt_addressC);
+        txt_cityC = (TextView) root.findViewById(R.id.txt_cityC);
+        txt_stateC = (TextView) root.findViewById(R.id.txt_stateC);
+        txt_dobC = (TextView) root.findViewById(R.id.txt_dobC);
+        txt_EditUserC = (TextView) root.findViewById(R.id.txt_EditUserC);
 
-        img_profile=(CircleImageView)root.findViewById(R.id.img_profile);
+        img_profile = (CircleImageView) root.findViewById(R.id.img_profile);
 
-        EditImg_Profile=(FloatingActionButton)root.findViewById(R.id.EditImg_Profile);
+        EditImg_Profile = (FloatingActionButton) root.findViewById(R.id.EditImg_Profile);
 
         allSharedPrefernces = new AllSharedPrefernces(getActivity());
 
-        volley = new Webservice_Volley(getActivity(),this);
+        volley = new Webservice_Volley(getActivity(), this);
 
         EditImg_Profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,16 +100,16 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
             public void onClick(View v) {
 
                 Intent i = new Intent(getActivity(), CandidateProfileEdit.class);
-                i.putExtra("data",Data.toString());
+                i.putExtra("data", Data.toString());
                 startActivity(i);
 
             }
         });
 
         String url = Constants.Webserive_Url + "get_candidateprofile";
-        HashMap<String,String> params = new HashMap<>();
-        params.put("Cid",allSharedPrefernces.getCustomerNo());
-        volley.CallVolley(url,params,"get_candidateprofile");
+        HashMap<String, String> params = new HashMap<>();
+        params.put("Cid", allSharedPrefernces.getCustomerNo());
+        volley.CallVolley(url, params, "get_candidateprofile");
 
         return root;
     }
@@ -118,14 +118,13 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
     public void getData(JSONObject jsonObject, String tag) {
         try {
 
-            if (jsonObject.getString("status").equalsIgnoreCase("200")){
+            if (jsonObject.getString("status").equalsIgnoreCase("200")) {
 
 
                 JSONArray RESPONSE = jsonObject.getJSONArray("response");
 
-                if(RESPONSE.length()>0)
-                {
-                    Data=RESPONSE.getJSONObject(0);
+                if (RESPONSE.length() > 0) {
+                    Data = RESPONSE.getJSONObject(0);
                     txt_nameC.setText(Data.getString("Cname"));
                     txt_emailC.setText(Data.getString("Cemail"));
                     txt_phoneC.setText(Data.getString("Cph"));
@@ -137,9 +136,7 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
                 }
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -147,7 +144,7 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
 
     public void ClickOnCandidateEdit(View view) {
         Intent i = new Intent(getActivity(), CandidateProfileEdit.class);
-        i.putExtra("data",Data.toString());
+        i.putExtra("data", Data.toString());
         startActivity(i);
     }
 
@@ -158,16 +155,15 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
             final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
             bottomSheetDialog.setContentView(R.layout.imagepickerdialog);
 
-            ImageView imgCancel = (ImageView)bottomSheetDialog.findViewById(R.id.imgCancel);
-            LinearLayout ll_camera = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_camera);
-            LinearLayout ll_gallery = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_gallery);
-
+            ImageView imgCancel = (ImageView) bottomSheetDialog.findViewById(R.id.imgCancel);
+            LinearLayout ll_camera = (LinearLayout) bottomSheetDialog.findViewById(R.id.ll_camera);
+            LinearLayout ll_gallery = (LinearLayout) bottomSheetDialog.findViewById(R.id.ll_gallery);
 
 
             ll_camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openCameraForImage(getActivity(),1);
+                    EasyImage.openCameraForImage(getActivity(), 1);
                     bottomSheetDialog.dismiss();
                 }
             });
@@ -175,7 +171,7 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
             ll_gallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openGallery(getActivity(),1);
+                    EasyImage.openGallery(getActivity(), 1);
                     bottomSheetDialog.dismiss();
 
                 }
@@ -195,8 +191,7 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
             bottomSheetDialog.show();
 
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

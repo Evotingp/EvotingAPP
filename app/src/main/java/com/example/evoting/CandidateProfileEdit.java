@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class CandidateProfileEdit extends AppCompatActivity implements DataInterface {
-    EditText edd_Name,edd_Email,edd_Phone,edd_Add,edd_City,edd_State,edd_Status;
+    EditText edd_Name, edd_Email, edd_Phone, edd_Add, edd_City, edd_State, edd_Status;
     TextView txt_SaveUserC;
 
     Webservice_Volley volley;
@@ -31,19 +31,19 @@ public class CandidateProfileEdit extends AppCompatActivity implements DataInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidate_profile_edit);
 
-        edd_Name=(EditText)findViewById(R.id.edd_Name);
-        edd_Email=(EditText)findViewById(R.id.edd_Email);
-        edd_Phone=(EditText)findViewById(R.id.edd_Phone);
-        edd_Add=(EditText)findViewById(R.id.edd_Add);
-        edd_City=(EditText)findViewById(R.id.edd_City);
-        edd_State=(EditText)findViewById(R.id.edd_State);
-        edd_Status=(EditText)findViewById(R.id.edd_Status);
+        edd_Name = (EditText) findViewById(R.id.edd_Name);
+        edd_Email = (EditText) findViewById(R.id.edd_Email);
+        edd_Phone = (EditText) findViewById(R.id.edd_Phone);
+        edd_Add = (EditText) findViewById(R.id.edd_Add);
+        edd_City = (EditText) findViewById(R.id.edd_City);
+        edd_State = (EditText) findViewById(R.id.edd_State);
+        edd_Status = (EditText) findViewById(R.id.edd_Status);
 
-        txt_SaveUserC=(TextView) findViewById(R.id.txt_SaveUserC);
+        txt_SaveUserC = (TextView) findViewById(R.id.txt_SaveUserC);
 
         allSharedPrefernces = new AllSharedPrefernces(this);
 
-        volley = new Webservice_Volley(this,this);
+        volley = new Webservice_Volley(this, this);
 
         String data = getIntent().getStringExtra("data");
 
@@ -62,8 +62,7 @@ public class CandidateProfileEdit extends AppCompatActivity implements DataInter
                 edd_Status.setText(Data.getString("Cstatus"));
 
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -78,17 +77,17 @@ public class CandidateProfileEdit extends AppCompatActivity implements DataInter
 
     public void ClickOnCandidateSave(View view) {
         String url = Constants.Webserive_Url + "update_candidate_profile";
-        HashMap<String,String> params = new HashMap<>();
-        params.put("Cname",edd_Name.getText().toString());
-        params.put("Cemail",edd_Email.getText().toString());
-        params.put("Cph",edd_Phone.getText().toString());
-        params.put("Caddress",edd_Add.getText().toString());
-        params.put("Ccity",edd_City.getText().toString());
-        params.put("Cstate",edd_State.getText().toString());
-        params.put("Cstatus",edd_Status.getText().toString());
+        HashMap<String, String> params = new HashMap<>();
+        params.put("Cname", edd_Name.getText().toString());
+        params.put("Cemail", edd_Email.getText().toString());
+        params.put("Cph", edd_Phone.getText().toString());
+        params.put("Caddress", edd_Add.getText().toString());
+        params.put("Ccity", edd_City.getText().toString());
+        params.put("Cstate", edd_State.getText().toString());
+        params.put("Cstatus", edd_Status.getText().toString());
 
-        params.put("Cid",allSharedPrefernces.getCustomerNo());
+        params.put("Cid", allSharedPrefernces.getCustomerNo());
 
-        volley.CallVolley(url,params,"update_candidate_profile");
+        volley.CallVolley(url, params, "update_candidate_profile");
     }
 }

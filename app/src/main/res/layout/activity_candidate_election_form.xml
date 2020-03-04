@@ -75,6 +75,7 @@
                     android:paddingBottom="24dp"
                     android:textColorHint="#f0f0f0"
                     android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/edd_City"
                     android:layout_width="match_parent"
@@ -87,6 +88,7 @@
                     android:paddingBottom="24dp"
                     android:textColorHint="#f0f0f0"
                     android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/edd_State"
                     android:layout_width="match_parent"
@@ -99,6 +101,7 @@
                     android:paddingBottom="24dp"
                     android:textColorHint="#f0f0f0"
                     android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/edd_ZipCode"
                     android:layout_width="match_parent"
@@ -111,6 +114,7 @@
                     android:paddingBottom="24dp"
                     android:textColorHint="#f0f0f0"
                     android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/edd_dob"
                     android:layout_width="match_parent"
@@ -233,6 +237,7 @@
                         android:textAllCaps="false"
                         android:textSize="18dp" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/lbl_AddressProof"
                     android:layout_width="match_parent"

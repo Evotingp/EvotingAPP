@@ -15,12 +15,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ClickOnVoter(View view) {
-        Intent i = new Intent(MainActivity.this,VoterLoginActivity.class);
+        Intent i = new Intent(MainActivity.this, VoterLoginActivity.class);
         startActivity(i);
     }
 
     public void ClickOnCandidate(View view) {
-        Intent i = new Intent(MainActivity.this,CandidateLoginActivity.class);
+        Intent i = new Intent(MainActivity.this, CandidateLoginActivity.class);
         startActivity(i);
     }
 }

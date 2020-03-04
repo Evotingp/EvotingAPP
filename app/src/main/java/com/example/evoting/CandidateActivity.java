@@ -2,10 +2,12 @@ package com.example.evoting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.evoting.utils.Commonfunction;
@@ -19,7 +21,8 @@ import java.util.HashMap;
 
 public class CandidateActivity extends AppCompatActivity implements DataInterface {
 
-    EditText edd_Name,edd_Email,edd_Phone,edd_Pass,edd_PassCnf;
+    EditText edd_Name, edd_Email, edd_Phone, edd_Pass, edd_PassCnf;
+    TextView txt_NewUserC;
     Button btn_submit;
 
     Webservice_Volley volley;
@@ -29,63 +32,65 @@ public class CandidateActivity extends AppCompatActivity implements DataInterfac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidate);
 
-        edd_Name=(EditText)findViewById(R.id.edd_Name);
-        edd_Email=(EditText)findViewById(R.id.edd_Email);
-        edd_Phone=(EditText)findViewById(R.id.edd_Phone);
-        edd_Pass=(EditText)findViewById(R.id.edd_Pass);
-        edd_PassCnf=(EditText)findViewById(R.id.edd_PassCnf);
-        btn_submit=(Button)findViewById(R.id.btn_submit);
+        edd_Name = (EditText) findViewById(R.id.edd_Name);
+        edd_Email = (EditText) findViewById(R.id.edd_Email);
+        edd_Phone = (EditText) findViewById(R.id.edd_Phone);
+        edd_Pass = (EditText) findViewById(R.id.edd_Pass);
+        edd_PassCnf = (EditText) findViewById(R.id.edd_PassCnf);
+        btn_submit = (Button) findViewById(R.id.btn_submit);
+        txt_NewUserC = (TextView) findViewById(R.id.txt_NewUserC);
 
-        volley = new Webservice_Volley(this,this);
+        volley = new Webservice_Volley(this, this);
 
-        btn_submit.setOnClickListener(new View.OnClickListener()
-        {
+        btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if(!Commonfunction.checkString(edd_Name.getText().toString()))
-                {
+            public void onClick(View v) {
+                if (!Commonfunction.checkString(edd_Name.getText().toString())) {
                     edd_Name.setError("PLEASE ENTER YOUR NAME");
                     return;
                 }
 
-                if (!Commonfunction.checkEmail(edd_Email.getText().toString()))
-                {
+                if (!Commonfunction.checkEmail(edd_Email.getText().toString())) {
                     edd_Email.setError("PLEASE ENTER 10 DIGIT MOBILE NO");
                     return;
                 }
-                if (!Commonfunction.checkMobileNo(edd_Phone.getText().toString()))
-                {
+                if (!Commonfunction.checkMobileNo(edd_Phone.getText().toString())) {
                     edd_Phone.setError("PLEASE ENTER 10 DIGIT MOBILE NO");
                     return;
                 }
 
 
-                if(!Commonfunction.checkPassword(edd_Pass.getText().toString())) {
+                if (!Commonfunction.checkPassword(edd_Pass.getText().toString())) {
                     edd_Pass.setError("PLEASE ENTER PASSWORD IN RIGHT FORMAT");
                     return;
                 }
 
-                if(!edd_Pass.getText().toString().equals(edd_PassCnf.getText().toString()))
-                {
+                if (!edd_Pass.getText().toString().equals(edd_PassCnf.getText().toString())) {
                     edd_PassCnf.setError("passwords Are not Same ");
                 }
 
                 String url = Constants.Webserive_Url + "candidate_signup";
-                HashMap<String,String> params = new HashMap<>();
-                params.put("Cname",edd_Name.getText().toString());
-                params.put("Cemail",edd_Email.getText().toString());
-                params.put("Cph",edd_Phone.getText().toString());
-                params.put("Caddress","");
-                params.put("Ccity","");
-                params.put("Cstate","");
-                params.put("Cpassword",edd_Pass.getText().toString());
-                params.put("Cdob","");
-                params.put("Cstatus","");
-                params.put("Cphoto","");
+                HashMap<String, String> params = new HashMap<>();
+                params.put("Cname", edd_Name.getText().toString());
+                params.put("Cemail", edd_Email.getText().toString());
+                params.put("Cph", edd_Phone.getText().toString());
+                params.put("Caddress", "");
+                params.put("Ccity", "");
+                params.put("Cstate", "");
+                params.put("Cpassword", edd_Pass.getText().toString());
+                params.put("Cdob", "");
+                params.put("Cstatus", "");
+                params.put("Cphoto", "");
 
-                volley.CallVolley(url,params,"candidate_signup");
+                volley.CallVolley(url, params, "candidate_signup");
 
+            }
+        });
+        txt_NewUserC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CandidateActivity.this, CandidateLoginActivity.class);
+                startActivity(i);
             }
         });
     }

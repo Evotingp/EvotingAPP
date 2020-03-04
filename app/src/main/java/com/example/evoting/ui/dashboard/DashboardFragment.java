@@ -50,21 +50,21 @@ public class DashboardFragment extends Fragment implements DataInterface {
 
         allSharedPrefernces = new AllSharedPrefernces(getActivity());
 
-        volley = new Webservice_Volley(getActivity(),this);
+        volley = new Webservice_Volley(getActivity(), this);
 
-        fabadd=(FloatingActionButton) root.findViewById(R.id.fabadd);
+        fabadd = (FloatingActionButton) root.findViewById(R.id.fabadd);
 
-        recyclerPost = (RecyclerView)root.findViewById(R.id.recyclerPost);
+        recyclerPost = (RecyclerView) root.findViewById(R.id.recyclerPost);
         recyclerPost.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        recyclerPost.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        recyclerPost.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
         String url = Constants.Webserive_Url + "get_candidate_feedpost";
 
-        HashMap<String,String> params = new HashMap<>();
-        params.put("Cid",allSharedPrefernces.getCustomerNo());
+        HashMap<String, String> params = new HashMap<>();
+        params.put("Cid", allSharedPrefernces.getCustomerNo());
 
-        volley.CallVolley(url,params,"get_candidate_feedpost");
+        volley.CallVolley(url, params, "get_candidate_feedpost");
 
         fabadd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class DashboardFragment extends Fragment implements DataInterface {
     public void getData(JSONObject jsonObject, String tag) {
         try {
 
-            FeedPostResponseVo feedPostResponseVo = new Gson().fromJson(jsonObject.toString(),FeedPostResponseVo.class);
+            FeedPostResponseVo feedPostResponseVo = new Gson().fromJson(jsonObject.toString(), FeedPostResponseVo.class);
 
             if (feedPostResponseVo != null) {
 
@@ -100,8 +100,7 @@ public class DashboardFragment extends Fragment implements DataInterface {
 
             }
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

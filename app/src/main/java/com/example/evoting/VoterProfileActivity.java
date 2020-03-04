@@ -31,7 +31,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class VoterProfileActivity extends AppCompatActivity implements DataInterface {
 
-    TextView txt_nameV, txt_emailV, txt_phoneV,txt_addressV,txt_cityV, txt_stateV, txt_dobV ;
+    TextView txt_nameV, txt_emailV, txt_phoneV, txt_addressV, txt_cityV, txt_stateV, txt_dobV;
     CircleImageView img_profile;
     FloatingActionButton EditImg_Profile;
 
@@ -44,18 +44,18 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voter_profile);
 
-        txt_nameV=(TextView)findViewById(R.id.txt_nameV);
-        txt_emailV=(TextView)findViewById(R.id.txt_emailV);
-        txt_phoneV=(TextView)findViewById(R.id.txt_phoneV);
-        txt_addressV=(TextView)findViewById(R.id.txt_addressV);
-        txt_cityV=(TextView)findViewById(R.id.txt_cityV);
-        txt_stateV=(TextView)findViewById(R.id.txt_stateV);
-        txt_dobV=(TextView)findViewById(R.id.txt_dobV);
+        txt_nameV = (TextView) findViewById(R.id.txt_nameV);
+        txt_emailV = (TextView) findViewById(R.id.txt_emailV);
+        txt_phoneV = (TextView) findViewById(R.id.txt_phoneV);
+        txt_addressV = (TextView) findViewById(R.id.txt_addressV);
+        txt_cityV = (TextView) findViewById(R.id.txt_cityV);
+        txt_stateV = (TextView) findViewById(R.id.txt_stateV);
+        txt_dobV = (TextView) findViewById(R.id.txt_dobV);
 
-        img_profile=(CircleImageView)findViewById(R.id.img_profile);
-        EditImg_Profile=(FloatingActionButton)findViewById(R.id.EditImg_Profile);
+        img_profile = (CircleImageView) findViewById(R.id.img_profile);
+        EditImg_Profile = (FloatingActionButton) findViewById(R.id.EditImg_Profile);
 
-        volley = new Webservice_Volley(this,this);
+        volley = new Webservice_Volley(this, this);
 
         EditImg_Profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +67,9 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
         });
 
         String url = Constants.Webserive_Url + "get_voterprofile";
-        HashMap<String,String> params = new HashMap<>();
-        params.put("Vid","1");
-        volley.CallVolley(url,params,"get_voterprofile");
+        HashMap<String, String> params = new HashMap<>();
+        params.put("Vid", "1");
+        volley.CallVolley(url, params, "get_voterprofile");
     }
 
     @Override
@@ -77,14 +77,13 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
 
         try {
 
-            if (jsonObject.getString("status").equalsIgnoreCase("200")){
+            if (jsonObject.getString("status").equalsIgnoreCase("200")) {
 
 
                 JSONArray RESPONSE = jsonObject.getJSONArray("response");
 
-                if(RESPONSE.length()>0)
-                {
-                    Data =RESPONSE.getJSONObject(0);
+                if (RESPONSE.length() > 0) {
+                    Data = RESPONSE.getJSONObject(0);
                     txt_nameV.setText(Data.getString("Vname"));
                     txt_emailV.setText(Data.getString("Vemail"));
                     txt_phoneV.setText(Data.getString("Vph"));
@@ -96,17 +95,15 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
                 }
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     public void ClickOnVoterEdit(View view) {
-        Intent i = new Intent(VoterProfileActivity.this,VoterProfileEditActivity.class);
-        i.putExtra("data",Data.toString());
+        Intent i = new Intent(VoterProfileActivity.this, VoterProfileEditActivity.class);
+        i.putExtra("data", Data.toString());
         startActivity(i);
     }
 
@@ -117,16 +114,15 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
             final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
             bottomSheetDialog.setContentView(R.layout.imagepickerdialog);
 
-            ImageView imgCancel = (ImageView)bottomSheetDialog.findViewById(R.id.imgCancel);
-            LinearLayout ll_camera = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_camera);
-            LinearLayout ll_gallery = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_gallery);
-
+            ImageView imgCancel = (ImageView) bottomSheetDialog.findViewById(R.id.imgCancel);
+            LinearLayout ll_camera = (LinearLayout) bottomSheetDialog.findViewById(R.id.ll_camera);
+            LinearLayout ll_gallery = (LinearLayout) bottomSheetDialog.findViewById(R.id.ll_gallery);
 
 
             ll_camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openCameraForImage(VoterProfileActivity.this,1);
+                    EasyImage.openCameraForImage(VoterProfileActivity.this, 1);
                     bottomSheetDialog.dismiss();
                 }
             });
@@ -134,7 +130,7 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
             ll_gallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openGallery(VoterProfileActivity.this,1);
+                    EasyImage.openGallery(VoterProfileActivity.this, 1);
                     bottomSheetDialog.dismiss();
 
                 }
@@ -154,8 +150,7 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
             bottomSheetDialog.show();
 
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

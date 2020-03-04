@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class VoterProfileEditActivity extends AppCompatActivity implements DataInterface {
-    EditText edd_Name,edd_Email,edd_Phone,edd_Add,edd_City,edd_State;
+    EditText edd_Name, edd_Email, edd_Phone, edd_Add, edd_City, edd_State;
     TextView txt_SaveUserV;
 
     Webservice_Volley volley;
@@ -31,16 +31,16 @@ public class VoterProfileEditActivity extends AppCompatActivity implements DataI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voter_profile_edit);
 
-        edd_Name=(EditText)findViewById(R.id.edd_Name);
-        edd_Email=(EditText)findViewById(R.id.edd_Email);
-        edd_Phone=(EditText)findViewById(R.id.edd_Phone);
-        edd_Add=(EditText)findViewById(R.id.edd_Add);
-        edd_City=(EditText)findViewById(R.id.edd_City);
-        edd_State=(EditText)findViewById(R.id.edd_State);
+        edd_Name = (EditText) findViewById(R.id.edd_Name);
+        edd_Email = (EditText) findViewById(R.id.edd_Email);
+        edd_Phone = (EditText) findViewById(R.id.edd_Phone);
+        edd_Add = (EditText) findViewById(R.id.edd_Add);
+        edd_City = (EditText) findViewById(R.id.edd_City);
+        edd_State = (EditText) findViewById(R.id.edd_State);
 
-        txt_SaveUserV=(TextView) findViewById(R.id.txt_SaveUserV);
+        txt_SaveUserV = (TextView) findViewById(R.id.txt_SaveUserV);
 
-        volley = new Webservice_Volley(this,this);
+        volley = new Webservice_Volley(this, this);
 
         String data = getIntent().getStringExtra("data");
 
@@ -58,11 +58,9 @@ public class VoterProfileEditActivity extends AppCompatActivity implements DataI
                 edd_State.setText(Data.getString("Vstate"));
 
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -76,15 +74,15 @@ public class VoterProfileEditActivity extends AppCompatActivity implements DataI
 
     public void ClickOnVoterSave(View view) {
         String url = Constants.Webserive_Url + "update_voter_profile";
-        HashMap<String,String> params = new HashMap<>();
-        params.put("Vname",edd_Name.getText().toString());
-        params.put("Vemail",edd_Email.getText().toString());
-        params.put("Vph",edd_Phone.getText().toString());
-        params.put("Vaddress",edd_Add.getText().toString());
-        params.put("Vcity",edd_City.getText().toString());
-        params.put("Vstate",edd_State.getText().toString());
-        params.put("Vid",Vid);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("Vname", edd_Name.getText().toString());
+        params.put("Vemail", edd_Email.getText().toString());
+        params.put("Vph", edd_Phone.getText().toString());
+        params.put("Vaddress", edd_Add.getText().toString());
+        params.put("Vcity", edd_City.getText().toString());
+        params.put("Vstate", edd_State.getText().toString());
+        params.put("Vid", Vid);
 
-        volley.CallVolley(url,params,"update_voter_profile");
+        volley.CallVolley(url, params, "update_voter_profile");
     }
 }

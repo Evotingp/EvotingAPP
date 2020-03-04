@@ -21,8 +21,8 @@ import java.util.HashMap;
 
 public class VoterLoginActivity extends AppCompatActivity implements DataInterface {
 
-    EditText edd_Mobile,edd_Password;
-    TextView txt_NewUserV,txt_forgotV;
+    EditText edd_Mobile, edd_Password;
+    TextView txt_NewUserV, txt_forgotV;
     Button btn_login;
 
     Webservice_Volley volley;
@@ -32,32 +32,31 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voter_login);
 
-        edd_Password=(EditText)findViewById(R.id.edd_Password);
-        edd_Mobile=(EditText)findViewById(R.id.edd_Mobile);
-        txt_NewUserV=(TextView)findViewById(R.id.txt_NewUserV);
-        txt_forgotV=(TextView)findViewById(R.id.txt_forgotV);
-        btn_login=(Button)findViewById(R.id.btn_login);
+        edd_Password = (EditText) findViewById(R.id.edd_Password);
+        edd_Mobile = (EditText) findViewById(R.id.edd_Mobile);
+        txt_NewUserV = (TextView) findViewById(R.id.txt_NewUserV);
+        txt_forgotV = (TextView) findViewById(R.id.txt_forgotV);
+        btn_login = (Button) findViewById(R.id.btn_login);
 
-        volley = new Webservice_Volley(this,this);
+        volley = new Webservice_Volley(this, this);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!Commonfunction.checkMobileNo(edd_Mobile.getText().toString()))
-                {
+                if (!Commonfunction.checkMobileNo(edd_Mobile.getText().toString())) {
                     edd_Mobile.setError("PLEASE ENTER 10 DIGIT MOBILE NO");
                     return;
                 }
-                if(!Commonfunction.checkPassword(edd_Password.getText().toString())) {
+                if (!Commonfunction.checkPassword(edd_Password.getText().toString())) {
                     edd_Password.setError("PLEASE ENTER PASSWORD IN RIGHT FORMAT");
                     return;
                 }
 
                 String url = Constants.Webserive_Url + "voter_login";
-                HashMap<String,String> params = new HashMap<>();
-                params.put("Vph",edd_Mobile.getText().toString());
-                params.put("Vpassword",edd_Password.getText().toString());
-                volley.CallVolley(url,params,"voter_login");
+                HashMap<String, String> params = new HashMap<>();
+                params.put("Vph", edd_Mobile.getText().toString());
+                params.put("Vpassword", edd_Password.getText().toString());
+                volley.CallVolley(url, params, "voter_login");
 
             }
         });
@@ -66,7 +65,7 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(VoterLoginActivity.this,VoterActivity.class);
+                Intent i = new Intent(VoterLoginActivity.this, VoterActivity.class);
                 startActivity(i);
 
             }
@@ -85,8 +84,7 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
                 Intent i = new Intent(VoterLoginActivity.this, VoterHomePageActivity.class);
                 startActivity(i);
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

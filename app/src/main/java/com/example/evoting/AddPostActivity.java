@@ -61,15 +61,15 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
-        edd_Title=(TextView)findViewById(R.id.edd_Title);
-        edd_Description=(TextView)findViewById(R.id.edd_Description);
-        imageView=(ImageView) findViewById(R.id.imageView);
-        AddImg_Post=(FloatingActionButton)findViewById(R.id.AddImg_Post);
-        btn_add =(Button) findViewById(R.id.btn_add);
+        edd_Title = (TextView) findViewById(R.id.edd_Title);
+        edd_Description = (TextView) findViewById(R.id.edd_Description);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        AddImg_Post = (FloatingActionButton) findViewById(R.id.AddImg_Post);
+        btn_add = (Button) findViewById(R.id.btn_add);
 
         allSharedPrefernces = new AllSharedPrefernces(this);
 
-        volley = new Webservice_Volley(this,this);
+        volley = new Webservice_Volley(this, this);
 
         AddImg_Post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
                 params.put("Description", edd_Description.getText().toString());
                 params.put("Image", imagePath);
                 params.put("PostedDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-                params.put("Cid",allSharedPrefernces.getCustomerNo());
+                params.put("Cid", allSharedPrefernces.getCustomerNo());
                 volley.CallVolley(url, params, "add_feedpost");
             }
         });
@@ -112,6 +112,7 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
     public void getData(JSONObject jsonObject, String tag) {
         Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
     }
+
     public void showBottomPickerDialog() {
 
         try {
@@ -119,16 +120,15 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
             final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
             bottomSheetDialog.setContentView(R.layout.imagepickerdialog);
 
-            ImageView imgCancel = (ImageView)bottomSheetDialog.findViewById(R.id.imgCancel);
-            LinearLayout ll_camera = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_camera);
-            LinearLayout ll_gallery = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_gallery);
-
+            ImageView imgCancel = (ImageView) bottomSheetDialog.findViewById(R.id.imgCancel);
+            LinearLayout ll_camera = (LinearLayout) bottomSheetDialog.findViewById(R.id.ll_camera);
+            LinearLayout ll_gallery = (LinearLayout) bottomSheetDialog.findViewById(R.id.ll_gallery);
 
 
             ll_camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openCameraForImage(AddPostActivity.this,1);
+                    EasyImage.openCameraForImage(AddPostActivity.this, 1);
                     bottomSheetDialog.dismiss();
                 }
             });
@@ -136,7 +136,7 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
             ll_gallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openGallery(AddPostActivity.this,1);
+                    EasyImage.openGallery(AddPostActivity.this, 1);
                     bottomSheetDialog.dismiss();
 
                 }
@@ -156,8 +156,7 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
             bottomSheetDialog.show();
 
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -179,8 +178,7 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
 
                         uploadPhoto(imageFiles.get(0));
 
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -196,56 +194,51 @@ public class AddPostActivity extends AppCompatActivity implements DataInterface 
     private void uploadPhoto(File myFile) throws FileNotFoundException {
 
 
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
 
-                AsyncHttpClient client = new AsyncHttpClient();
-                RequestParams params = new RequestParams();
+        Log.v("File Size", "origial Length===>" + myFile.length());
 
-                Log.v("File Size", "origial Length===>" + myFile.length());
+        if (myFile != null) {
+            Log.v("File ", "with compress===>");
+            params.put("userPhoto", myFile);
+        }
 
-                if (myFile != null) {
-                    Log.v("File ", "with compress===>");
-                    params.put("userPhoto", myFile);
-                }
-
-                ResponseHandlerInterface handler = new TextHttpResponseHandler() {
+        ResponseHandlerInterface handler = new TextHttpResponseHandler() {
 
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 
-                        imagePath = "";
+                imagePath = "";
 
-                        Toast.makeText(AddPostActivity.this, "Upload fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPostActivity.this, "Upload fail", Toast.LENGTH_SHORT).show();
 
-                    }
+            }
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
 
 //                        Toast.makeText(AddPostActivity.this, responseString, Toast.LENGTH_LONG).show();
 
-                        try {
+                try {
 
-                            JSONObject jsonObject = new JSONObject(responseString);
-                            if (jsonObject != null){
-                                imagePath = jsonObject.getString("filename");
-                            }
-
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-
+                    JSONObject jsonObject = new JSONObject(responseString);
+                    if (jsonObject != null) {
+                        imagePath = jsonObject.getString("filename");
                     }
-                };
 
-                    client.post(Constants.Webserive_Url + "photo", params, handler);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        };
+
+        client.post(Constants.Webserive_Url + "photo", params, handler);
 
     }
-
-
-
 
 
 }

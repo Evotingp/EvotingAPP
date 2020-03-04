@@ -33,7 +33,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class CandidateProfileActivity extends AppCompatActivity implements DataInterface {
 
-    TextView txt_nameC, txt_emailC, txt_phoneC,txt_addressC,txt_cityC, txt_stateC, txt_dobC;
+    TextView txt_nameC, txt_emailC, txt_phoneC, txt_addressC, txt_cityC, txt_stateC, txt_dobC;
     CircleImageView img_profile;
     FloatingActionButton EditImg_Profile;
 
@@ -48,48 +48,47 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidate_profile);
 
-                txt_nameC=(TextView)findViewById(R.id.txt_nameC);
-                txt_emailC=(TextView)findViewById(R.id.txt_emailC);
-                txt_phoneC=(TextView)findViewById(R.id.txt_phoneC);
-                txt_addressC=(TextView)findViewById(R.id.txt_addressC);
-                txt_cityC=(TextView)findViewById(R.id.txt_cityC);
-                txt_stateC=(TextView)findViewById(R.id.txt_stateC);
-                txt_dobC=(TextView)findViewById(R.id.txt_dobC);
+        txt_nameC = (TextView) findViewById(R.id.txt_nameC);
+        txt_emailC = (TextView) findViewById(R.id.txt_emailC);
+        txt_phoneC = (TextView) findViewById(R.id.txt_phoneC);
+        txt_addressC = (TextView) findViewById(R.id.txt_addressC);
+        txt_cityC = (TextView) findViewById(R.id.txt_cityC);
+        txt_stateC = (TextView) findViewById(R.id.txt_stateC);
+        txt_dobC = (TextView) findViewById(R.id.txt_dobC);
 
-                img_profile=(CircleImageView)findViewById(R.id.img_profile);
-                EditImg_Profile=(FloatingActionButton)findViewById(R.id.EditImg_Profile);
+        img_profile = (CircleImageView) findViewById(R.id.img_profile);
+        EditImg_Profile = (FloatingActionButton) findViewById(R.id.EditImg_Profile);
 
-                allSharedPrefernces = new AllSharedPrefernces(this);
+        allSharedPrefernces = new AllSharedPrefernces(this);
 
-                volley = new Webservice_Volley(this,this);
+        volley = new Webservice_Volley(this, this);
 
-                EditImg_Profile.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        EditImg_Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                        showBottomPickerDialog();
+                showBottomPickerDialog();
 
-                    }
-                });
+            }
+        });
 
-                String url = Constants.Webserive_Url + "get_candidateprofile";
-                HashMap<String,String> params = new HashMap<>();
-                params.put("Cid",allSharedPrefernces.getCustomerNo());
-                volley.CallVolley(url,params,"get_candidateprofile");
+        String url = Constants.Webserive_Url + "get_candidateprofile";
+        HashMap<String, String> params = new HashMap<>();
+        params.put("Cid", allSharedPrefernces.getCustomerNo());
+        volley.CallVolley(url, params, "get_candidateprofile");
     }
 
     @Override
     public void getData(JSONObject jsonObject, String tag) {
         try {
 
-            if (jsonObject.getString("status").equalsIgnoreCase("200")){
+            if (jsonObject.getString("status").equalsIgnoreCase("200")) {
 
 
                 JSONArray RESPONSE = jsonObject.getJSONArray("response");
 
-                if(RESPONSE.length()>0)
-                {
-                    Data=RESPONSE.getJSONObject(0);
+                if (RESPONSE.length() > 0) {
+                    Data = RESPONSE.getJSONObject(0);
                     txt_nameC.setText(Data.getString("Cname"));
                     txt_emailC.setText(Data.getString("Cemail"));
                     txt_phoneC.setText(Data.getString("Cph"));
@@ -101,17 +100,15 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
                 }
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     public void ClickOnCandidateEdit(View view) {
-        Intent i = new Intent(CandidateProfileActivity.this,CandidateProfileEdit.class);
-        i.putExtra("data",Data.toString());
+        Intent i = new Intent(CandidateProfileActivity.this, CandidateProfileEdit.class);
+        i.putExtra("data", Data.toString());
         startActivity(i);
     }
 
@@ -122,16 +119,15 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
             final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
             bottomSheetDialog.setContentView(R.layout.imagepickerdialog);
 
-            ImageView imgCancel = (ImageView)bottomSheetDialog.findViewById(R.id.imgCancel);
-            LinearLayout ll_camera = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_camera);
-            LinearLayout ll_gallery = (LinearLayout)bottomSheetDialog.findViewById(R.id.ll_gallery);
-
+            ImageView imgCancel = (ImageView) bottomSheetDialog.findViewById(R.id.imgCancel);
+            LinearLayout ll_camera = (LinearLayout) bottomSheetDialog.findViewById(R.id.ll_camera);
+            LinearLayout ll_gallery = (LinearLayout) bottomSheetDialog.findViewById(R.id.ll_gallery);
 
 
             ll_camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openCameraForImage(CandidateProfileActivity.this,1);
+                    EasyImage.openCameraForImage(CandidateProfileActivity.this, 1);
                     bottomSheetDialog.dismiss();
                 }
             });
@@ -139,7 +135,7 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
             ll_gallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openGallery(CandidateProfileActivity.this,1);
+                    EasyImage.openGallery(CandidateProfileActivity.this, 1);
                     bottomSheetDialog.dismiss();
 
                 }
@@ -159,8 +155,7 @@ public class CandidateProfileActivity extends AppCompatActivity implements DataI
             bottomSheetDialog.show();
 
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -84,7 +84,7 @@ public class ElectionListFragment extends Fragment implements DataInterface, Ele
             if (tag.equalsIgnoreCase("get_candidate_participation")) {
 
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
-                
+
                 if (jsonArray.length() > 0) {
 
                     JSONObject jobj = jsonArray.getJSONObject(0);
@@ -96,7 +96,7 @@ public class ElectionListFragment extends Fragment implements DataInterface, Ele
                         Date dobDate = parseDate(dob);
                         Date curDate = new Date();
 
-                        int diff = getDiffYears(dobDate,curDate);
+                        int diff = getDiffYears(dobDate, curDate);
 
 
                         if (selectedElection != null) {
@@ -105,16 +105,15 @@ public class ElectionListFragment extends Fragment implements DataInterface, Ele
 
                                 Toast.makeText(getActivity(), "YOu are not elligible", Toast.LENGTH_LONG).show();
 
-                            }
-                            else {
+                            } else {
 
                                 String url = Constants.Webserive_Url + "election_request";
 
                                 HashMap<String, String> params = new HashMap<>();
 
-                                params.put("Election_Id",""+selectedElection.getId());
-                                params.put("Cid",allSharedPrefernces.getCustomerNo());
-                                params.put("Is_Approve","0");
+                                params.put("Election_Id", "" + selectedElection.getId());
+                                params.put("Cid", allSharedPrefernces.getCustomerNo());
+                                params.put("Is_Approve", "0");
 
                                 volley.CallVolley(url, params, "election_request");
 
@@ -123,23 +122,18 @@ public class ElectionListFragment extends Fragment implements DataInterface, Ele
                         }
 
 
-
                     }
 
 
-                    
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Please Fill Participation form first.", Toast.LENGTH_LONG).show();
                 }
 
-            }
-            else if (tag.equalsIgnoreCase("election_request")){
+            } else if (tag.equalsIgnoreCase("election_request")) {
 
                 Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
 
-            }
-            else {
+            } else {
 
                 ElectionListInfoVo electionListInfoVo = new Gson().fromJson(jsonObject.toString(), ElectionListInfoVo.class);
 
@@ -175,8 +169,7 @@ public class ElectionListFragment extends Fragment implements DataInterface, Ele
 
             return date;
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -194,7 +187,7 @@ public class ElectionListFragment extends Fragment implements DataInterface, Ele
         String url = Constants.Webserive_Url + "get_candidate_participation";
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("Cid",allSharedPrefernces.getCustomerNo());
+        params.put("Cid", allSharedPrefernces.getCustomerNo());
 
         volley.CallVolley(url, params, "get_candidate_participation");
 
