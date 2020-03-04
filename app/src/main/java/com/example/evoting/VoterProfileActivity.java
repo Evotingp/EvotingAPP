@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
 import com.example.evoting.utils.Webservice_Volley;
@@ -38,6 +39,8 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
     Webservice_Volley volley;
 
     JSONObject Data = null;
+
+    AllSharedPrefernces allSharedPrefernces = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

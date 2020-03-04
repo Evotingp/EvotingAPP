@@ -1,4 +1,4 @@
-package com.example.evoting.ui.candidateprofile;
+package com.example.evoting.ui.voterprofile;
 
 
 import android.content.Intent;
@@ -18,11 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.evoting.CandidateActivity;
-import com.example.evoting.CandidateLoginActivity;
-import com.example.evoting.CandidateProfileActivity;
+import com.example.evoting.AddPostActivity;
 import com.example.evoting.CandidateProfileEdit;
 import com.example.evoting.R;
+import com.example.evoting.VoterProfileActivity;
+import com.example.evoting.VoterProfileEditActivity;
 import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
@@ -33,7 +33,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.loopj.android.http.TextHttpResponseHandler;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,15 +50,14 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CandidateProfileFragment extends Fragment implements DataInterface {
+public class VoterProfileFragment extends Fragment implements DataInterface {
 
 
-    public CandidateProfileFragment() {
+    public VoterProfileFragment() {
         // Required empty public constructor
     }
 
-
-    TextView txt_nameC, txt_emailC, txt_phoneC, txt_addressC, txt_cityC, txt_stateC, txt_dobC, txt_EditUserC;
+    TextView txt_nameV, txt_emailV, txt_phoneV, txt_addressV, txt_cityV, txt_stateV, txt_dobV, txt_EditUserV;
     CircleImageView img_profile;
     FloatingActionButton EditImg_Profile;
 
@@ -71,27 +69,23 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
 
     View root = null;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_candidate_profile, container, false);
+        root = inflater.inflate(R.layout.fragment_voter_profile, container, false);
 
-        txt_nameC = (TextView) root.findViewById(R.id.txt_nameC);
-        txt_emailC = (TextView) root.findViewById(R.id.txt_emailC);
-        txt_phoneC = (TextView) root.findViewById(R.id.txt_phoneC);
-        txt_addressC = (TextView) root.findViewById(R.id.txt_addressC);
-        txt_cityC = (TextView) root.findViewById(R.id.txt_cityC);
-        txt_stateC = (TextView) root.findViewById(R.id.txt_stateC);
-        txt_dobC = (TextView) root.findViewById(R.id.txt_dobC);
-        txt_EditUserC = (TextView) root.findViewById(R.id.txt_EditUserC);
+        txt_nameV = (TextView) root.findViewById(R.id.txt_nameV);
+        txt_emailV = (TextView) root.findViewById(R.id.txt_emailV);
+        txt_phoneV = (TextView) root.findViewById(R.id.txt_phoneV);
+        txt_addressV = (TextView) root.findViewById(R.id.txt_addressV);
+        txt_cityV = (TextView) root.findViewById(R.id.txt_cityV);
+        txt_stateV = (TextView) root.findViewById(R.id.txt_stateV);
+        txt_dobV = (TextView) root.findViewById(R.id.txt_dobV);
+        txt_EditUserV = (TextView) root.findViewById((R.id.txt_EditUserV));
 
         img_profile = (CircleImageView) root.findViewById(R.id.img_profile);
-
         EditImg_Profile = (FloatingActionButton) root.findViewById(R.id.EditImg_Profile);
-
-        allSharedPrefernces = new AllSharedPrefernces(getActivity());
 
         volley = new Webservice_Volley(getActivity(), this);
 
@@ -104,21 +98,19 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
             }
         });
 
-        txt_EditUserC.setOnClickListener(new View.OnClickListener() {
+        txt_EditUserV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(getActivity(), CandidateProfileEdit.class);
+                Intent i = new Intent(getActivity(), VoterProfileEditActivity.class);
                 i.putExtra("data", Data.toString());
                 startActivity(i);
-
             }
         });
 
-        String url = Constants.Webserive_Url + "get_candidateprofile";
+        String url = Constants.Webserive_Url + "get_voterprofile";
         HashMap<String, String> params = new HashMap<>();
-        params.put("Cid", allSharedPrefernces.getCustomerNo());
-        volley.CallVolley(url, params, "get_candidateprofile");
+        params.put("Vid", "1");
+        volley.CallVolley(url, params, "get_voterprofile");
 
         return root;
     }
@@ -126,7 +118,7 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
     @Override
     public void getData(JSONObject jsonObject, String tag) {
         try {
-            if(tag.equalsIgnoreCase("update_cphoto")){
+            if (tag.equalsIgnoreCase("update_cphoto")) {
 
                 if (jsonObject.getString("status").equalsIgnoreCase("200")) {
 
@@ -134,15 +126,14 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
 
                     if (jsonObject1 != null) {
 
-                        jsonObject1.put("Cphoto", imagePath);
+                        jsonObject1.put("Vphoto", imagePath);
 
                         allSharedPrefernces.setCustomerData(jsonObject1.toString());
 
                     }
                 }
 
-            }
-            else {
+            } else {
 
                 if (jsonObject.getString("status").equalsIgnoreCase("200")) {
 
@@ -151,14 +142,13 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
 
                     if (RESPONSE.length() > 0) {
                         Data = RESPONSE.getJSONObject(0);
-                        txt_nameC.setText(Data.getString("Cname"));
-                        txt_emailC.setText(Data.getString("Cemail"));
-                        txt_phoneC.setText(Data.getString("Cph"));
-                        txt_addressC.setText(Data.getString("Caddress"));
-                        txt_cityC.setText(Data.getString("Ccity"));
-                        txt_stateC.setText(Data.getString("Cstate"));
-                        txt_dobC.setText(Data.getString("Cdob"));
-
+                        txt_nameV.setText(Data.getString("Vname"));
+                        txt_emailV.setText(Data.getString("Vemail"));
+                        txt_phoneV.setText(Data.getString("Vph"));
+                        txt_addressV.setText(Data.getString("Vaddress"));
+                        txt_cityV.setText(Data.getString("Vcity"));
+                        txt_stateV.setText(Data.getString("Vstate"));
+                        txt_dobV.setText(Data.getString("Vdob"));
 
                     }
                 }
@@ -167,11 +157,10 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public void ClickOnCandidateEdit(View view) {
-        Intent i = new Intent(getActivity(), CandidateProfileEdit.class);
+    public void ClickOnVoterEdit(View view) {
+        Intent i = new Intent(getActivity(), VoterProfileEditActivity.class);
         i.putExtra("data", Data.toString());
         startActivity(i);
     }
@@ -229,7 +218,6 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
 
             @Override
@@ -252,7 +240,6 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
     }
 
     String imagePath = "";
-
 
     private void uploadPhoto(File myFile) throws FileNotFoundException {
 
@@ -287,16 +274,15 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
 
                     JSONObject jsonObject = new JSONObject(responseString);
                     if (jsonObject != null) {
+                        String path = jsonObject.getString("filename");
 
-                        imagePath = jsonObject.getString("filename");
-
-                        String url = Constants.Webserive_Url + "update_cphoto";
+                        String url = Constants.Webserive_Url + "update_vphoto";
                         HashMap<String, String> params = new HashMap<>();
-                        params.put("Cphoto", imagePath);
+                        params.put("Vphoto", path);
+                        params.put("Vid", "1");
 
-                        params.put("Cid", allSharedPrefernces.getCustomerNo());
+                        volley.CallVolley(url, params, "update_vphoto");
 
-                        volley.CallVolley(url, params, "update_cphoto");
 
                     }
 
@@ -311,5 +297,6 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
         client.post(Constants.Webserive_Url + "photo", params, handler);
 
     }
+
 
 }

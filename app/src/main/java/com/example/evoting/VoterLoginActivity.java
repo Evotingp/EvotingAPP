@@ -10,11 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Commonfunction;
 import com.example.evoting.utils.Constants;
 import com.example.evoting.utils.DataInterface;
 import com.example.evoting.utils.Webservice_Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -27,6 +29,8 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
 
     Webservice_Volley volley;
 
+    AllSharedPrefernces allSharedPrefernces = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,8 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
         txt_NewUserV = (TextView) findViewById(R.id.txt_NewUserV);
         txt_forgotV = (TextView) findViewById(R.id.txt_forgotV);
         btn_login = (Button) findViewById(R.id.btn_login);
+
+        allSharedPrefernces = new AllSharedPrefernces(this);
 
         volley = new Webservice_Volley(this, this);
 
@@ -70,23 +76,40 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
 
             }
         });
+
+        txt_forgotV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(VoterLoginActivity.this, VoterForgotPasswordActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
     public void getData(JSONObject jsonObject, String tag) {
-
         try {
-
-            Toast.makeText(this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-
             if (jsonObject.getString("status").equalsIgnoreCase("200")) {
 
-                Intent i = new Intent(VoterLoginActivity.this, VoterHomePageActivity.class);
-                startActivity(i);
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
+
+                if (jsonArray.length() > 0) {
+
+                    JSONObject jobj = jsonArray.getJSONObject(0);
+
+                    allSharedPrefernces.setCustomerNo(jobj.getString("Vid"));
+                    allSharedPrefernces.setUserLogin(true);
+                    allSharedPrefernces.setUserType("voter");
+                    allSharedPrefernces.setCustomerData(jobj.toString());
+
+                    Intent i = new Intent(VoterLoginActivity.this, VoterHomePageActivity.class);
+                    startActivity(i);
+
+                    finish();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
