@@ -128,19 +128,6 @@
                     android:textColorHint="#f0f0f0"
                     android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/edd_pname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="Party Name"
-                    android:inputType="text"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
                 <TextView
                     android:id="@+id/lbl_IDProof"
                     android:layout_width="match_parent"
@@ -361,47 +348,6 @@
                         android:textSize="18dp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/lbl_PartyLogo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="PARTY LOGO"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:textSize="24dp" />
-
-                <FrameLayout
-                    android:id="@+id/f_partylogo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="4dp">
-
-
-                    <ImageView
-                        android:id="@+id/partylogoimg"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/uploadimage" />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/AddImg_PartyLogo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:backgroundTint="@android:color/holo_red_dark"
-                        android:clickable="true"
-                        android:tint="@android:color/white"
-                        app:fabSize="mini"
-                        app:srcCompat="@android:drawable/ic_input_add" />
-
-                </FrameLayout>
 
             </LinearLayout>
 
@@ -409,6 +355,16 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_edit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorPrimaryDark"/>
 
     <Button
         android:id="@+id/btn_submit"

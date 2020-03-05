@@ -87,6 +87,8 @@ public class VoterProfileFragment extends Fragment implements DataInterface {
         img_profile = (CircleImageView) root.findViewById(R.id.img_profile);
         EditImg_Profile = (FloatingActionButton) root.findViewById(R.id.EditImg_Profile);
 
+        allSharedPrefernces = new AllSharedPrefernces(getActivity());
+
         volley = new Webservice_Volley(getActivity(), this);
 
         EditImg_Profile.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +111,7 @@ public class VoterProfileFragment extends Fragment implements DataInterface {
 
         String url = Constants.Webserive_Url + "get_voterprofile";
         HashMap<String, String> params = new HashMap<>();
-        params.put("Vid", "1");
+        params.put("Vid", allSharedPrefernces.getCustomerNo());
         volley.CallVolley(url, params, "get_voterprofile");
 
         return root;
@@ -279,7 +281,7 @@ public class VoterProfileFragment extends Fragment implements DataInterface {
                         String url = Constants.Webserive_Url + "update_vphoto";
                         HashMap<String, String> params = new HashMap<>();
                         params.put("Vphoto", path);
-                        params.put("Vid", "1");
+                        params.put("Vid", allSharedPrefernces.getCustomerNo());
 
                         volley.CallVolley(url, params, "update_vphoto");
 

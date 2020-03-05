@@ -52,7 +52,7 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/AddImg_Post"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_gravity="bottom|right"
                 android:backgroundTint="@android:color/holo_red_dark"
                 android:clickable="true"

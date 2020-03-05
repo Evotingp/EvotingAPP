@@ -1,20 +1,27 @@
-package com.example.evoting;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.evoting.ui.electionform;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evoting.CandidateElectionFormActivity;
+import com.example.evoting.CandidateForgotPasswordActivity;
+import com.example.evoting.CandidateLoginActivity;
+import com.example.evoting.R;
 import com.example.evoting.utils.AllSharedPrefernces;
 import com.example.evoting.utils.Commonfunction;
 import com.example.evoting.utils.Constants;
@@ -31,8 +38,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,11 +45,15 @@ import cz.msebera.android.httpclient.Header;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
-public class CandidateElectionFormActivity extends AppCompatActivity implements DataInterface {
+public class ElectionFormFragment extends Fragment implements DataInterface {
 
-    TextView edd_FirstName, edd_MiddleName, edd_LastName, edd_Address, edd_State, edd_City, edd_ZipCode, edd_dob, edd_pname;
-    ImageView fidimage, bidimage, faddressimg, baddressimg, partylogoimg;
-    FloatingActionButton AddImg_FID, AddImg_BID, AddImg_FAddress, AddImg_BAddress, AddImg_PartyLogo;
+    public ElectionFormFragment() {
+        // Required empty public constructor
+    }
+
+    TextView edd_FirstName, edd_MiddleName, edd_LastName, edd_Address, edd_State, edd_City, edd_ZipCode, edd_dob;
+    ImageView fidimage, bidimage, faddressimg, baddressimg;
+    FloatingActionButton AddImg_FID, AddImg_BID, AddImg_FAddress, AddImg_BAddress, btn_edit;
     Button btn_submit;
 
     String imagePath;
@@ -55,38 +64,41 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
 
     AllSharedPrefernces allSharedPrefernces = null;
 
+    View root = null;
+
     ImageView selected_imageview;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_candidate_election_form);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        edd_FirstName = (TextView) findViewById(R.id.edd_FirstName);
-        edd_MiddleName = (TextView) findViewById(R.id.edd_MiddleName);
-        edd_LastName = (TextView) findViewById(R.id.edd_LastName);
-        edd_Address = (TextView) findViewById(R.id.edd_Address);
-        edd_State = (TextView) findViewById(R.id.edd_State);
-        edd_City = (TextView) findViewById(R.id.edd_City);
-        edd_ZipCode = (TextView) findViewById(R.id.edd_ZipCode);
-        edd_dob = (TextView) findViewById(R.id.edd_dob);
-        edd_pname = (TextView) findViewById(R.id.edd_pname);
-        fidimage = (ImageView) findViewById(R.id.fidimage);
-        bidimage = (ImageView) findViewById(R.id.bidimage);
-        faddressimg = (ImageView) findViewById(R.id.faddressimg);
-        baddressimg = (ImageView) findViewById(R.id.baddressimg);
-        partylogoimg= (ImageView) findViewById(R.id.partylogoimg);
-        AddImg_FID = (FloatingActionButton) findViewById(R.id.AddImg_FID);
-        AddImg_BID = (FloatingActionButton) findViewById(R.id.AddImg_BID);
-        AddImg_FAddress = (FloatingActionButton) findViewById(R.id.AddImg_FAddress);
-        AddImg_BAddress = (FloatingActionButton) findViewById(R.id.AddImg_BAddress);
-        AddImg_PartyLogo = (FloatingActionButton) findViewById(R.id.AddImg_PartyLogo);
+        root = inflater.inflate(R.layout.fragment_election_form, container, false);
 
-        btn_submit = (Button) findViewById(R.id.btn_submit);
+       // setContentView(R.layout.activity_candidate_election_form);
 
-        allSharedPrefernces = new AllSharedPrefernces(this);
+        edd_FirstName = (TextView) root.findViewById(R.id.edd_FirstName);
+        edd_MiddleName = (TextView) root.findViewById(R.id.edd_MiddleName);
+        edd_LastName = (TextView) root.findViewById(R.id.edd_LastName);
+        edd_Address = (TextView) root.findViewById(R.id.edd_Address);
+        edd_State = (TextView) root.findViewById(R.id.edd_State);
+        edd_City = (TextView) root.findViewById(R.id.edd_City);
+        edd_ZipCode = (TextView) root.findViewById(R.id.edd_ZipCode);
+        edd_dob = (TextView) root.findViewById(R.id.edd_dob);
+        fidimage = (ImageView) root.findViewById(R.id.fidimage);
+        bidimage = (ImageView) root.findViewById(R.id.bidimage);
+        faddressimg = (ImageView) root.findViewById(R.id.faddressimg);
+        baddressimg = (ImageView) root.findViewById(R.id.baddressimg);
+        AddImg_FID = (FloatingActionButton) root.findViewById(R.id.AddImg_FID);
+        AddImg_BID = (FloatingActionButton) root.findViewById(R.id.AddImg_BID);
+        AddImg_FAddress = (FloatingActionButton) root.findViewById(R.id.AddImg_FAddress);
+        AddImg_BAddress = (FloatingActionButton) root.findViewById(R.id.AddImg_BAddress);
 
-        volley = new Webservice_Volley(this, this);
+        btn_submit = (Button) root.findViewById(R.id.btn_submit);
+        btn_edit = (FloatingActionButton) root.findViewById(R.id.btn_edit);
+
+        allSharedPrefernces = new AllSharedPrefernces(getActivity());
+
+        volley = new Webservice_Volley(getActivity(), this);
 
         AddImg_FID.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,16 +137,14 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
 
             }
         });
-        AddImg_PartyLogo.setOnClickListener(new View.OnClickListener() {
+
+        btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                selected_imageview = partylogoimg;
-                showBottomPickerDialog();
-
+                Intent i = new Intent(getActivity(), CandidateElectionFormActivity.class);
+                startActivity(i);
             }
         });
-
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,37 +153,34 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                     return;
                 }
                 if (!Commonfunction.checkString(edd_MiddleName.getText().toString())) {
-                    edd_MiddleName.setError("PLEASE ENTER MIDDLE NAME");
+                    edd_FirstName.setError("PLEASE ENTER MIDDLE NAME");
                     return;
                 }
                 if (!Commonfunction.checkString(edd_LastName.getText().toString())) {
-                    edd_LastName.setError("PLEASE ENTER LAST NAME");
+                    edd_FirstName.setError("PLEASE ENTER LAST NAME");
                     return;
                 }
                 if (!Commonfunction.checkString(edd_Address.getText().toString())) {
-                    edd_Address.setError("PLEASE ENTER ADDRESS");
+                    edd_FirstName.setError("PLEASE ENTER ADDRESS");
                     return;
                 }
                 if (!Commonfunction.checkString(edd_State.getText().toString())) {
-                    edd_State.setError("PLEASE ENTER STATE NAME");
+                    edd_FirstName.setError("PLEASE ENTER STATE NAME");
                     return;
                 }
                 if (!Commonfunction.checkString(edd_City.getText().toString())) {
-                    edd_City.setError("PLEASE ENTER CITY NAME");
+                    edd_FirstName.setError("PLEASE ENTER CITY NAME");
                     return;
                 }
                 if (!Commonfunction.checkString(edd_ZipCode.getText().toString())) {
-                    edd_ZipCode.setError("PLEASE ENTER ZIPCODE");
+                    edd_FirstName.setError("PLEASE ENTER ZIPCODE");
                     return;
                 }
                 if (!Commonfunction.checkString(edd_dob.getText().toString())) {
-                    edd_dob.setError("PLEASE ENTER DATE OF BIRTH");
+                    edd_FirstName.setError("PLEASE ENTER DATE OF BIRTH");
                     return;
                 }
-                if (!Commonfunction.checkString(edd_pname.getText().toString())) {
-                    edd_pname.setError("PLEASE ENTER PARTY NAME");
-                    return;
-                }
+
                 String url = Constants.Webserive_Url + "candidate_participation";
                 HashMap<String, String> params = new HashMap<>();
 
@@ -185,14 +192,11 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                 params.put("City", edd_City.getText().toString());
                 params.put("ZipCode", edd_ZipCode.getText().toString());
                 params.put("DOB", edd_dob.getText().toString());
-                params.put("Party_Name", edd_pname.getText().toString());
 
                 params.put("Front_Id", fidimage.getTag().toString());
                 params.put("Back_Id", bidimage.getTag().toString());
                 params.put("Front_Address", faddressimg.getTag().toString());
-                params.put("Back_Address", baddressimg.getTag().toString());
-                params.put("Party_Logo", partylogoimg.getTag().toString());
-
+                params.put("Back_Address", faddressimg.getTag().toString());
                 params.put("Is_Approve", "0");
 
                 params.put("Candidate_Id", allSharedPrefernces.getCustomerNo());
@@ -200,19 +204,20 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                 volley.CallVolley(url, params, "candidate_participation");
             }
         });
-
+        // Inflate the layout for this fragment
+        return root;
     }
 
     @Override
     public void getData(JSONObject jsonObject, String tag) {
-        Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+
     }
 
     public void showBottomPickerDialog() {
 
         try {
 
-            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
             bottomSheetDialog.setContentView(R.layout.imagepickerdialog);
 
             ImageView imgCancel = (ImageView) bottomSheetDialog.findViewById(R.id.imgCancel);
@@ -223,7 +228,7 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
             ll_camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openCameraForImage(CandidateElectionFormActivity.this, 1);
+                    EasyImage.openCameraForImage(getActivity(), 1);
                     bottomSheetDialog.dismiss();
                 }
             });
@@ -231,7 +236,7 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
             ll_gallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EasyImage.openGallery(CandidateElectionFormActivity.this, 1);
+                    EasyImage.openGallery(getActivity(), 1);
                     bottomSheetDialog.dismiss();
 
                 }
@@ -258,11 +263,11 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
 
             @Override
             public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {
@@ -303,7 +308,7 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
 
                 imagePath = "";
 
-                Toast.makeText(CandidateElectionFormActivity.this, "Upload fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Upload fail", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -333,5 +338,5 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
 
     }
 
-}
 
+}

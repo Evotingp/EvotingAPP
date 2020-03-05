@@ -58,6 +58,8 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
         img_profile = (CircleImageView) findViewById(R.id.img_profile);
         EditImg_Profile = (FloatingActionButton) findViewById(R.id.EditImg_Profile);
 
+        allSharedPrefernces = new AllSharedPrefernces(this);
+
         volley = new Webservice_Volley(this, this);
 
         EditImg_Profile.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +73,7 @@ public class VoterProfileActivity extends AppCompatActivity implements DataInter
 
         String url = Constants.Webserive_Url + "get_voterprofile";
         HashMap<String, String> params = new HashMap<>();
-        params.put("Vid", "1");
+        params.put("Vid", allSharedPrefernces.getCustomerNo());
         volley.CallVolley(url, params, "get_voterprofile");
     }
 

@@ -25,9 +25,9 @@
 
     <fragment
         android:id="@+id/nav_form"
-        android:name="com.example.evoting.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.example.evoting.ui.electionform.ElectionFormFragment"
+        android:label="Election Form"
+        tools:layout="@layout/fragment_election_form" />
 
 
 </navigation>
