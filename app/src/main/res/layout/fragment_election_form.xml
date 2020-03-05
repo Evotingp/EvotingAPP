@@ -6,377 +6,90 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".CandidateElectionFormActivity">
+    tools:context=".ui.electionform.ElectionFormFragment">
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/f_partylogo"
+        android:layout_width="wrap_content"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_partylogo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp"
+            tools:src="@tools:sample/avatars" />
+    </FrameLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btn_submit">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/f_partylogo"
+        android:padding="24dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txt_PartyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Party Name"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="24dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/txt_CanName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Candidate Name"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="24dp" />
 
-                <EditText
-                    android:id="@+id/edd_FirstName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="First Name"
-                    android:inputType="textPersonName"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
+        <TextView
+            android:id="@+id/lbl_Address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="ADDRESS"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="16dp" />
 
-                <EditText
-                    android:id="@+id/edd_MiddleName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="Middle Name"
-                    android:inputType="textPersonName"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
+        <TextView
+            android:id="@+id/txt_Address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Address"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="24dp" />
 
-                <EditText
-                    android:id="@+id/edd_LastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="Last Name"
-                    android:inputType="textPersonName"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
+    </LinearLayout>
 
-                <EditText
-                    android:id="@+id/edd_Address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="Address"
-                    android:inputType="text"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/edd_City"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="City"
-                    android:inputType="text"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/edd_State"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="State"
-                    android:inputType="text"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/edd_ZipCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="Zip Code"
-                    android:inputType="number"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/edd_dob"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@android:color/white"
-                    android:ems="10"
-                    android:hint="Date Of Birth"
-                    android:inputType="date"
-                    android:paddingBottom="24dp"
-                    android:textColorHint="#f0f0f0"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/lbl_IDProof"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="ID PROOF"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:textSize="24dp" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:id="@+id/f_fidproof"
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:padding="4dp">
-
-
-                        <ImageView
-                            android:id="@+id/fidimage"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/uploadimage" />
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/AddImg_FID"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|right"
-                            android:backgroundTint="@android:color/holo_red_dark"
-                            android:clickable="true"
-                            android:tint="@android:color/white"
-                            app:fabSize="mini"
-                            app:srcCompat="@android:drawable/ic_input_add" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/f_bidproof"
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:padding="4dp">
-
-
-                        <ImageView
-                            android:id="@+id/bidimage"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/uploadimage" />
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/AddImg_BID"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|right"
-                            android:backgroundTint="@android:color/holo_red_dark"
-                            android:clickable="true"
-                            android:tint="@android:color/white"
-                            app:fabSize="mini"
-                            app:srcCompat="@android:drawable/ic_input_add" />
-
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/lbl_FIDProof"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Front Side"
-                        android:textAllCaps="false"
-                        android:textSize="18dp" />
-
-                    <TextView
-                        android:id="@+id/lbl_BIDProof"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Back Side"
-                        android:textAllCaps="false"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/lbl_AddressProof"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="ADDRESS PROOF"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:textSize="24dp" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:id="@+id/f_faddress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:padding="4dp">
-
-
-                        <ImageView
-                            android:id="@+id/faddressimg"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/uploadimage" />
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/AddImg_FAddress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|right"
-                            android:backgroundTint="@android:color/holo_red_dark"
-                            android:clickable="true"
-                            android:tint="@android:color/white"
-                            app:fabSize="mini"
-                            app:srcCompat="@android:drawable/ic_input_add" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/f_baddress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:padding="4dp">
-
-
-                        <ImageView
-                            android:id="@+id/baddressimg"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/uploadimage" />
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/AddImg_BAddress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|right"
-                            android:backgroundTint="@android:color/holo_red_dark"
-                            android:clickable="true"
-                            android:tint="@android:color/white"
-                            app:fabSize="mini"
-                            app:srcCompat="@android:drawable/ic_input_add" />
-
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/lbl_FAddressProof"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Front Side"
-                        android:textAllCaps="false"
-                        android:textSize="18dp" />
-
-                    <TextView
-                        android:id="@+id/lbl_BAddressProof"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Back Side"
-                        android:textAllCaps="false"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_edit"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:src="@android:drawable/ic_input_add"
         android:tint="@android:color/white"
-        app:backgroundTint="@color/colorPrimaryDark"/>
-
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="16dp"
-        android:background="#1fffffff"
-        android:gravity="center"
-        android:text="Submit Form"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="24dp"
+        app:backgroundTint="@color/colorPrimaryDark" />
 
 </RelativeLayout>
