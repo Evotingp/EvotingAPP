@@ -1,13 +1,18 @@
 package com.example.evoting.adapter;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.evoting.AllCandidatelistActivity;
 import com.example.evoting.R;
 import com.example.evoting.models.ElectionListDataView;
 
@@ -36,17 +41,57 @@ public class VoterElectionListAdapter extends RecyclerView.Adapter<VoterElection
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         final ElectionListDataView electionListDataView = listdata.get(position);
         holder.txt_title.setText(electionListDataView.getTitle());
         holder.txt_startdate.setText(parseDate(electionListDataView.getStartDate()));
         holder.txt_enddate.setText(parseDate(electionListDataView.getEndDate()));
 
+        Date startDate = parseDate1(electionListDataView.getStartDate());
+        Date endDate = parseDate1(electionListDataView.getEndDate());
+        Date curDate = new Date();
 
-        String S = printDifference(new Date(),parseDate1(electionListDataView.getStartDate()));
+        final boolean isElectionStarted = curDate.after(startDate) && curDate.before(endDate);
 
-        holder.txt_timer.setText(S);
+
+        if (isElectionStarted) {
+            String S = printDifference(curDate,endDate);
+            holder.txt_timer.setText("ELECTION ENDS IN " + S);
+            holder.txt_timer.setTextColor(Color.GREEN);
+        }
+        else {
+            String S = printDifference(curDate,startDate);
+            if (TextUtils.isEmpty(S)) {
+                holder.txt_timer.setText("ELECTION IS OVER");
+                holder.txt_timer.setTextColor(Color.RED);
+            } else {
+                holder.txt_timer.setText(S + " Remaining");
+                holder.txt_timer.setTextColor(Color.BLUE);
+            }
+        }
+
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (holder.txt_timer.getText().toString().equalsIgnoreCase("election is over")) {
+                    Toast.makeText(holder.itemView.getContext(), "Election is already completed.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+
+
+                    Intent i = new Intent(holder.itemView.getContext(), AllCandidatelistActivity.class);
+                    i.putExtra("id", "" + electionListDataView.getId());
+                    i.putExtra("isElectionStarted",isElectionStarted);
+                    holder.itemView.getContext().startActivity(i);
+                }
+
+            }
+        });
 
     }
 
@@ -117,6 +162,9 @@ public class VoterElectionListAdapter extends RecyclerView.Adapter<VoterElection
     }
 
     public String printDifference(Date startDate, Date endDate) {
+
+        StringBuilder sb = new StringBuilder();
+
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
 
@@ -139,9 +187,24 @@ public class VoterElectionListAdapter extends RecyclerView.Adapter<VoterElection
         different = different % minutesInMilli;
 
         long elapsedSeconds = different / secondsInMilli;
+        if (elapsedDays > 0) {
+            sb.append(""+elapsedDays).append(" Days ");
+        }
+        if (elapsedHours > 0) {
+            sb.append(""+elapsedHours).append(" Hours ");
+        }
+        if (elapsedMinutes > 0) {
+            sb.append(""+elapsedMinutes).append(" Minutes ");
+        }
 
-       return String.format("%d days, %d hours, %d minutes, %d seconds%n",
+
+
+
+       String s = String.format("%d days, %d hours, %d minutes, %d seconds%n",
                 elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
+
+        return sb.toString();
+
 
     }
 }  

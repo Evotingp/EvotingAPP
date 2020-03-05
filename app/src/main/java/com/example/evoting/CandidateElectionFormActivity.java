@@ -193,7 +193,7 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                 params.put("Back_Address", baddressimg.getTag().toString());
                 params.put("Party_Logo", partylogoimg.getTag().toString());
 
-                params.put("Is_Approve", "0");
+                params.put("Is_DocApprove", "0");
 
                 params.put("Candidate_Id", allSharedPrefernces.getCustomerNo());
 

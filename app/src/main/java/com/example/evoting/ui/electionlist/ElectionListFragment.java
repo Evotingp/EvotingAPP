@@ -92,33 +92,40 @@ public class ElectionListFragment extends Fragment implements DataInterface, Ele
                     if (jobj.has("DOB")) {
 
                         String dob = jobj.getString("DOB");
+                        String is_docApprove = jobj.getString("Is_DocApprove");
 
-                        Date dobDate = parseDate(dob);
-                        Date curDate = new Date();
+                        if (is_docApprove.equalsIgnoreCase("1")) {
 
-                        int diff = getDiffYears(dobDate, curDate);
+                            Date dobDate = parseDate(dob);
+                            Date curDate = new Date();
+
+                            int diff = getDiffYears(dobDate, curDate);
 
 
-                        if (selectedElection != null) {
+                            if (selectedElection != null) {
 
-                            if (diff < selectedElection.getMinAge()) {
+                                if (diff < selectedElection.getMinAge()) {
 
-                                Toast.makeText(getActivity(), "YOu are not elligible", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "YOu are not elligible", Toast.LENGTH_LONG).show();
 
-                            } else {
+                                } else {
 
-                                String url = Constants.Webserive_Url + "election_request";
+                                    String url = Constants.Webserive_Url + "election_request";
 
-                                HashMap<String, String> params = new HashMap<>();
+                                    HashMap<String, String> params = new HashMap<>();
 
-                                params.put("Election_Id", "" + selectedElection.getId());
-                                params.put("Cid", allSharedPrefernces.getCustomerNo());
-                                params.put("Is_Approve", "0");
+                                    params.put("Election_Id", "" + selectedElection.getId());
+                                    params.put("Cid", allSharedPrefernces.getCustomerNo());
+                                    params.put("Is_Approve", "0");
 
-                                volley.CallVolley(url, params, "election_request");
+                                    volley.CallVolley(url, params, "election_request");
+
+                                }
 
                             }
-
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Your documents are not approved.", Toast.LENGTH_LONG).show();
                         }
 
 
@@ -187,7 +194,7 @@ public class ElectionListFragment extends Fragment implements DataInterface, Ele
         String url = Constants.Webserive_Url + "get_candidate_participation";
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("Cid", allSharedPrefernces.getCustomerNo());
+        params.put("Candidate_Id", allSharedPrefernces.getCustomerNo());
 
         volley.CallVolley(url, params, "get_candidate_participation");
 

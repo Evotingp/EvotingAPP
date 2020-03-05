@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CandidateElectionFormActivity"></activity>
+        <activity android:name=".AllCandidatelistActivity"></activity>
+        <activity android:name=".CandidateElectionFormActivity" />
         <activity
             android:name=".CandidateHomePageActivity"
             android:label="@string/title_activity_candidate_home_page"

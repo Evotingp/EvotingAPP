@@ -47,26 +47,26 @@
                     android:layout_gravity="center">
 
                     <TextView
-                        android:id="@+id/txt_canname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:text="Start Date"
-                        android:layout_gravity="center"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/black"
-                        android:textSize="18dp" />
-
-                    <TextView
                         android:id="@+id/txt_partyname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:layout_weight="1"
                         android:gravity="left"
-                        android:text="Start Date"
+                        android:text="Party Name"
+                        android:layout_gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_canname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="Candidate Name"
                         android:layout_gravity="center"
                         android:textAllCaps="false"
                         android:textColor="@android:color/black"
@@ -84,6 +84,15 @@
                     tools:src="@tools:sample/avatars" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_vote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Vote"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </LinearLayout>

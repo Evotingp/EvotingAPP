@@ -1,5 +1,6 @@
 package com.example.evoting.adapter;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.evoting.AllCandidatelistActivity;
 import com.example.evoting.R;
 import com.example.evoting.models.ElectionListDataView;
 import com.squareup.picasso.Picasso;
@@ -39,7 +41,7 @@ public class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         final ElectionListDataView electionListDataView = listdata.get(position);
         holder.txt_title.setText(electionListDataView.getTitle());
@@ -57,6 +59,8 @@ public class ElectionListAdapter extends RecyclerView.Adapter<ElectionListAdapte
 
             }
         });
+
+
 
     }
 

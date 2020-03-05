@@ -34,6 +34,7 @@ import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.loopj.android.http.TextHttpResponseHandler;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -92,7 +93,7 @@ public class ElectionFormFragment extends Fragment implements DataInterface {
 
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("Cid", allSharedPrefernces.getCustomerNo());
+        params.put("Candidate_Id", allSharedPrefernces.getCustomerNo());
 
         volley.CallVolley(url, params, "get_candidate_participation");
         return root;
@@ -100,6 +101,36 @@ public class ElectionFormFragment extends Fragment implements DataInterface {
 
     @Override
     public void getData(JSONObject jsonObject, String tag) {
+
+        try {
+
+            JSONArray jsonArray = jsonObject.getJSONArray("response");
+
+            if (jsonArray.length() > 0) {
+                JSONObject jobj = jsonArray.getJSONObject(0);
+
+                if (jobj != null) {
+
+                    txt_PartyName.setText(jobj.getString("Party_Name"));
+                    txt_CanName.setText(jobj.getString("First_Name") + " " + jobj.getString("Middle_Name") +" "+jobj.getString("Last_Name"));
+                    txt_Address.setText(jobj.getString("Address") + " " + jobj.getString("City") + " " + jobj.getString( "State") + " " + jobj.getString( "ZipCode"));
+
+                    btn_edit.setVisibility(View.GONE);
+
+                }
+                else {
+                    btn_edit.setVisibility(View.VISIBLE);
+                }
+            }
+            else {
+                btn_edit.setVisibility(View.VISIBLE);
+            }
+
+
+        }
+        catch (Exception e ){
+            e.printStackTrace();
+        }
 
     }
 }
