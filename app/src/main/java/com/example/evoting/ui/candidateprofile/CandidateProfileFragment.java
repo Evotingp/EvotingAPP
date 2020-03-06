@@ -159,6 +159,7 @@ public class CandidateProfileFragment extends Fragment implements DataInterface 
                         txt_stateC.setText(Data.getString("Cstate"));
                         txt_dobC.setText(Data.getString("Cdob"));
 
+                        Picasso.get().load(Constants.IMAGE_Url + Data.getString("Cphoto")).into(img_profile);
 
                     }
                 }

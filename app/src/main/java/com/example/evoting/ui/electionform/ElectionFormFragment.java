@@ -33,6 +33,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.loopj.android.http.TextHttpResponseHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -110,6 +111,8 @@ public class ElectionFormFragment extends Fragment implements DataInterface {
                 JSONObject jobj = jsonArray.getJSONObject(0);
 
                 if (jobj != null) {
+
+                    Picasso.get().load(Constants.IMAGE_Url + jobj.getString("Party_Logo")).into(img_partylogo);
 
                     txt_PartyName.setText(jobj.getString("Party_Name"));
                     txt_CanName.setText(jobj.getString("First_Name") + " " + jobj.getString("Middle_Name") +" "+jobj.getString("Last_Name"));

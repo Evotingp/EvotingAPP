@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.evoting.R;
 import com.example.evoting.models.CandidateListData;
 import com.example.evoting.models.ElectionListDataView;
+import com.example.evoting.utils.Constants;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,8 +55,9 @@ public class AllCandidateListAdapter extends RecyclerView.Adapter<AllCandidateLi
 
         holder.txt_partyname.setText(candidateListData.getPartyName());
         holder.txt_canname.setText(candidateListData.getFirstName() +" "+candidateListData.getMiddleName() +" "+candidateListData.getLastName());
-        //holder.img_party.setText(candidateListData.getPartyLogo());
-        //holder.img_candidate.setText(candidateListData.getCphoto());
+
+        Picasso.get().load(Constants.IMAGE_Url + candidateListData.getCphoto()).into(holder.img_party);
+        Picasso.get().load(Constants.IMAGE_Url + candidateListData.getPartyLogo()).into(holder.img_candidate);
 
         if (isElectionStarted) {
             holder.btn_vote.setVisibility(View.VISIBLE);
@@ -62,6 +65,18 @@ public class AllCandidateListAdapter extends RecyclerView.Adapter<AllCandidateLi
         else {
             holder.btn_vote.setVisibility(View.GONE);
         }
+
+        holder.btn_vote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mListner != null){
+                    mListner.setItemClickListener(position,candidateListData);
+                }
+
+
+            }
+        });
 
     }
 
@@ -85,6 +100,7 @@ public class AllCandidateListAdapter extends RecyclerView.Adapter<AllCandidateLi
             img_party = (ImageView) itemView.findViewById(R.id.img_party);
             img_candidate = (ImageView) itemView.findViewById(R.id.img_candidate);
             btn_vote = (Button) itemView.findViewById(R.id.btn_vote);
+
         }
     }
 

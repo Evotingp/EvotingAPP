@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.evoting.R;
 import com.example.evoting.models.FeedPostResponseVo;
 import com.example.evoting.models.FeedPostResultVo;
+import com.example.evoting.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -46,8 +47,9 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         holder.txt_Description.setText(feedPostResultVo.getDescription());
         holder.txt_name.setText(feedPostResultVo.getCname());
 
-        if (!TextUtils.isEmpty(feedPostResultVo.getImage())) {
-            Picasso.get().load(feedPostResultVo.getImage()).into(holder.imageView1);
+        if (!TextUtils.isEmpty(feedPostResultVo.getImage()))
+        {
+            Picasso.get().load(Constants.IMAGE_Url + feedPostResultVo.getImage()).into(holder.imageView1);
         }
 
 

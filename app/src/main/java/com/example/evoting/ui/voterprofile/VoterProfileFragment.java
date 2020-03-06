@@ -33,6 +33,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.loopj.android.http.TextHttpResponseHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -152,6 +153,7 @@ public class VoterProfileFragment extends Fragment implements DataInterface {
                         txt_stateV.setText(Data.getString("Vstate"));
                         txt_dobV.setText(Data.getString("Vdob"));
 
+                        Picasso.get().load(Constants.IMAGE_Url + Data.getString("Vphoto")).into(img_profile);
                     }
                 }
             }
