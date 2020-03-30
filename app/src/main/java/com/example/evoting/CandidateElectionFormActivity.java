@@ -174,7 +174,7 @@ public class CandidateElectionFormActivity extends AppCompatActivity implements 
                     edd_pname.setError("PLEASE ENTER PARTY NAME");
                     return;
                 }
-                String url = Constants.Webserive_Url + "candidate_participation";
+                    String url = Constants.Webserive_Url + "candidate_participation";
                 HashMap<String, String> params = new HashMap<>();
 
                 params.put("First_Name", edd_FirstName.getText().toString());

@@ -39,7 +39,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     }  
   
     @Override  
-    public void onBindViewHolder(ViewHolder holder, int position) {  
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
         FeedPostResultVo feedPostResultVo = listdata.get(position);
         holder.txt_title.setText(feedPostResultVo.getTitle());
@@ -51,11 +51,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         {
             Picasso.get().load(Constants.IMAGE_Url + feedPostResultVo.getImage()).into(holder.imageView1);
         }
-
-
-
-
-    }  
+    }
   
   
     @Override  

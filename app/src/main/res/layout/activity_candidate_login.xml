@@ -46,7 +46,7 @@
                 android:ems="10"
                 android:hint="Email Id"
                 android:paddingLeft="16dp"
-                android:text="abc@gmail.com"
+                android:text="rohan@gmail.com"
                 android:textColorHint="#f0f0f0"
                 android:textSize="16sp" />
 
@@ -64,7 +64,7 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:paddingLeft="16dp"
-                android:text="Pass@123"
+                android:text="Rohan@123"
                 android:textColorHint="#f0f0f0"
                 android:textSize="16sp" />
         </LinearLayout>

@@ -22,4 +22,10 @@
         android:name="com.example.evoting.ui.voterprofile.VoterProfileFragment"
         android:label="My Profile"
         tools:layout="@layout/fragment_voter_profile" />
+
+    <fragment
+        android:id="@+id/navigation_result"
+        android:name="com.example.evoting.ui.voterprofile.VoterProfileFragment"
+        android:label="My Profile"
+        tools:layout="@layout/fragment_voter_profile" />
 </navigation>
