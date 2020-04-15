@@ -18,13 +18,13 @@
         tools:layout="@layout/voterelectionlist_row" />
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.example.evoting.ui.voterprofile.VoterProfileFragment"
-        android:label="My Profile"
-        tools:layout="@layout/fragment_voter_profile" />
+        android:id="@+id/navigation_electionresult"
+        android:name="com.example.evoting.ui.electionresult.ElectionResultFragment"
+        android:label="Election Result"
+        tools:layout="@layout/fragment_election_result" />
 
     <fragment
-        android:id="@+id/navigation_result"
+        android:id="@+id/navigation_profile"
         android:name="com.example.evoting.ui.voterprofile.VoterProfileFragment"
         android:label="My Profile"
         tools:layout="@layout/fragment_voter_profile" />

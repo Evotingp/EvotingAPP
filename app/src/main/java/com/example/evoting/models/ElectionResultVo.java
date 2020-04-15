@@ -5,18 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class ElectionResultVo {
 
-    @SerializedName("Vid")
+    @SerializedName("votecount")
     @Expose
-    private Integer vid;
+    private Integer votecount;
     @SerializedName("Election_Id")
     @Expose
     private Integer electionId;
-    @SerializedName("Voter_Id")
-    @Expose
-    private Integer voterId;
-    @SerializedName("vote_date_time")
-    @Expose
-    private String voteDateTime;
     @SerializedName("vote_data")
     @Expose
     private String voteData;
@@ -42,12 +36,12 @@ public class ElectionResultVo {
     @Expose
     private Integer minAge;
 
-    public Integer getVid() {
-        return vid;
+    public Integer getVotecount() {
+        return votecount;
     }
 
-    public void setVid(Integer vid) {
-        this.vid = vid;
+    public void setVotecount(Integer votecount) {
+        this.votecount = votecount;
     }
 
     public Integer getElectionId() {
@@ -56,22 +50,6 @@ public class ElectionResultVo {
 
     public void setElectionId(Integer electionId) {
         this.electionId = electionId;
-    }
-
-    public Integer getVoterId() {
-        return voterId;
-    }
-
-    public void setVoterId(Integer voterId) {
-        this.voterId = voterId;
-    }
-
-    public String getVoteDateTime() {
-        return voteDateTime;
-    }
-
-    public void setVoteDateTime(String voteDateTime) {
-        this.voteDateTime = voteDateTime;
     }
 
     public String getVoteData() {

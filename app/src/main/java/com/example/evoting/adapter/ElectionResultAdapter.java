@@ -32,7 +32,7 @@ public class ElectionResultAdapter extends RecyclerView.Adapter<ElectionResultAd
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem = layoutInflater.inflate(R.layout.layout_post_row, parent, false);
+        View listItem = layoutInflater.inflate(R.layout.layout_electionresult_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
@@ -43,8 +43,15 @@ public class ElectionResultAdapter extends RecyclerView.Adapter<ElectionResultAd
         ElectionResultVo electionResultVo = listdata.get(position);
         try {
             holder.txt_title.setText(electionResultVo.getTitle());
-            holder.txt_date.setText("Started from " + parseDate(electionResultVo.getStartDate()) + " to " + parseDate(electionResultVo.getEndDate()));
-            holder.txt_candetails.setText(AESEncyption.decrypt(electionResultVo.getVoteData()));
+            holder.txt_date.setText(parseDate(electionResultVo.getStartDate()) + "\nto\n" + parseDate(electionResultVo.getEndDate()));
+
+            String[] data = AESEncyption.decrypt(electionResultVo.getVoteData()).split("\\|\\|");
+            if (data != null) {
+                if (data.length >= 3) {
+                    holder.txt_candetails.setText(data[1]);
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,21 +78,14 @@ public class ElectionResultAdapter extends RecyclerView.Adapter<ElectionResultAd
     }
 
     public String parseDate(String dt) {
-
         try {
-
             SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             SimpleDateFormat output = new SimpleDateFormat("dd MMMM yyyy hh:mm aa");
-
             Date date = input.parse(dt);
-
             return output.format(date);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "";
-
     }
 }  

@@ -95,6 +95,8 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
 
                 if (jsonArray.length() > 0) {
 
+                    Toast.makeText(this, "Login Successful.", Toast.LENGTH_LONG).show();
+
                     JSONObject jobj = jsonArray.getJSONObject(0);
 
                     allSharedPrefernces.setCustomerNo(jobj.getString("Vid"));
@@ -106,6 +108,9 @@ public class VoterLoginActivity extends AppCompatActivity implements DataInterfa
                     startActivity(i);
 
                     finish();
+                }
+                else {
+                    Toast.makeText(this, "Login Fail.", Toast.LENGTH_LONG).show();
                 }
             }
         } catch (Exception e) {
